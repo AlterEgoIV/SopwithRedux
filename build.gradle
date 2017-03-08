@@ -6,7 +6,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.0'
+        classpath 'com.android.tools.build:gradle:2.3.0'
     }
 }
 
@@ -44,6 +44,7 @@ project(":desktop") {
 }
 
 project(":android") {
+	
     apply plugin: "android"
 
     configurations { natives }
