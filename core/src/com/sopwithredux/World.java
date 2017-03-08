@@ -5,7 +5,10 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.sopwithredux.gameobjects.Bullet;
+import com.sopwithredux.gameobjects.CollidableObject;
 import com.sopwithredux.gameobjects.GameObject;
+import com.sopwithredux.gameobjects.Plane;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,11 +29,11 @@ public class World
         activeGameObjectsToRemove = new ArrayList<GameObject>();
         collisionHandler = new CollisionHandler();
 
-        activeGameObjects.add(new Ship(this, new Vector2(Gdx.graphics.getWidth() / 3, Gdx.graphics.getHeight() / 2),
+        activeGameObjects.add(new Plane(this, new Vector2(Gdx.graphics.getWidth() / 3, Gdx.graphics.getHeight() / 2),
           new Vector2(50, 50), 5.0, 0.0, 5.0, Color.RED,
           Input.Keys.UP, Input.Keys.LEFT, Input.Keys.RIGHT, Input.Keys.M));
 
-        activeGameObjects.add(new Ship(this, new Vector2(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2),
+        activeGameObjects.add(new Plane(this, new Vector2(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2),
           new Vector2(50, 50), 5.0, 0.0, 5.0, Color.CYAN,
           Input.Keys.W, Input.Keys.A, Input.Keys.D, Input.Keys.E));
 
