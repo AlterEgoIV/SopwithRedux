@@ -14,6 +14,7 @@ public abstract class GameObject
     protected Vector2 position, dimension, sourceDimension, direction;
     protected double speed, angle;
     protected Texture image;
+    protected boolean isFlippedX, isFlippedY;
 
     protected GameObject(World world, Texture image, Vector2 position, Vector2 dimension, Vector2 sourceDimension, double speed)
     {
@@ -23,6 +24,8 @@ public abstract class GameObject
         this.dimension = dimension;
         this.sourceDimension = sourceDimension;
         this.speed = speed;
+        isFlippedX = false;
+        isFlippedY = false;
         direction = new Vector2(0, 0);
     }
 
@@ -51,6 +54,6 @@ public abstract class GameObject
           1f, 1f,
           (float)angle,
           0, 0, (int)sourceDimension.x, (int)sourceDimension.y,
-          false, false);
+          isFlippedX, isFlippedY);
     }
 }

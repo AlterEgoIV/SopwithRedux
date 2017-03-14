@@ -59,7 +59,7 @@ public abstract class CollidableObject extends GameObject
           1f, 1f,
           0,
           0, 0, (int)sourceDimension.x, (int)sourceDimension.y,
-          false, false);
+          isFlippedX, isFlippedY);
         batch.draw(rectangleImage, rectangle.x, rectangle.y);
     }
 
