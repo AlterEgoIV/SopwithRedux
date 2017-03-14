@@ -2,6 +2,7 @@ package com.sopwithredux;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -9,17 +10,18 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class SopwithRedux extends ApplicationAdapter
 {
+	private AssetManager assetManager;
 	private World world;
 	private SpriteBatch batch;
-	private FPSLogger fpsLogger;
 
 	@Override
 	public void create()
 	{
-		world = new World();
+		assetManager = new AssetManager();
+		loadAssets();
 
+		world = new World(assetManager);
 		batch = new SpriteBatch();
-		fpsLogger = new FPSLogger();
 	}
 
 	@Override
@@ -34,13 +36,22 @@ public class SopwithRedux extends ApplicationAdapter
 		batch.begin();
 		world.render(batch);
 		batch.end();
-
-		//fpsLogger.log();
 	}
 
 	@Override
 	public void dispose()
 	{
+		assetManager.dispose();
 		batch.dispose();
+	}
+
+	private void loadAssets()
+	{
+		assetManager.load("background.png", Texture.class);
+		assetManager.load("plane1.png", Texture.class);
+		assetManager.load("plane2.png", Texture.class);
+		assetManager.load("bullet.png", Texture.class);
+		assetManager.load("bomb.png", Texture.class);
+		assetManager.finishLoading();
 	}
 }

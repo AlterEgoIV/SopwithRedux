@@ -10,28 +10,28 @@ import com.sopwithredux.World;
 /**
  * Created by Carl on 08/03/2017.
  */
-public class Bullet extends CollidableObject
+public class Bullet extends Projectile
 {
-    public Bullet(World world, Vector2 position, Vector2 dimension, double speed, double angle, Color colour)
+    public Bullet(World world, Texture image, Vector2 position, Vector2 dimension, Vector2 sourceDimension, double speed, double angle)
     {
-        super(world, position, dimension, speed, angle, colour);
-        initialise(position, dimension, speed, angle, colour);
+        super(world, image, position, dimension, sourceDimension, speed, angle);
+        initialise(position, dimension, speed, angle);
     }
 
-    public void initialise(Vector2 position, Vector2 dimension, double speed, double angle, Color colour)
+    public void initialise(Vector2 position, Vector2 dimension, double speed, double angle)
     {
         this.position = position;
         this.dimension = dimension;
         this.speed = speed;
         this.angle = angle;
-        this.colour = colour;
 
         direction.x = (float)Math.cos(Math.toRadians(angle));
         direction.y = (float)Math.sin(Math.toRadians(angle));
         direction.scl((float)speed);
+        //this.position.add(direction);
 
         Pixmap pixmap = new Pixmap((int)dimension.x, (int)dimension.y, Pixmap.Format.RGBA8888);
-        pixmap.setColor(colour);
+        pixmap.setColor(Color.BLACK);
         pixmap.drawLine(0, 0, (int)dimension.x, 0);
 
         image = new Texture(pixmap);
@@ -43,6 +43,8 @@ public class Bullet extends CollidableObject
     @Override
     public void update()
     {
+        direction.nor();
+        direction.scl((float)speed * Gdx.graphics.getDeltaTime());
         position.add(direction);
 
         if(position.x > Gdx.graphics.getWidth() || position.x < 0 ||

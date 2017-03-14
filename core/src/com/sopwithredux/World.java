@@ -2,7 +2,8 @@ package com.sopwithredux;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.sopwithredux.gameobjects.Bullet;
@@ -18,24 +19,27 @@ import java.util.List;
  */
 public class World
 {
+    private AssetManager assetManager;
     private List<GameObject> activeGameObjects, inactiveGameObjects, activeGameObjectsToAdd, activeGameObjectsToRemove;
     private CollisionHandler collisionHandler;
+    private Texture background;
 
-    public World()
+    public World(AssetManager assetManager)
     {
+        this.assetManager = assetManager;
         activeGameObjects = new ArrayList<GameObject>();
         inactiveGameObjects = new ArrayList<GameObject>();
         activeGameObjectsToAdd = new ArrayList<GameObject>();
         activeGameObjectsToRemove = new ArrayList<GameObject>();
         collisionHandler = new CollisionHandler();
+        background = assetManager.get("background.png", Texture.class);
 
-        activeGameObjects.add(new Plane(this, new Vector2(Gdx.graphics.getWidth() / 3, Gdx.graphics.getHeight() / 2),
-          new Vector2(50, 50), 5.0, 0.0, 5.0, Color.RED,
-          Input.Keys.UP, Input.Keys.LEFT, Input.Keys.RIGHT, Input.Keys.M));
-
-        activeGameObjects.add(new Plane(this, new Vector2(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2),
-          new Vector2(50, 50), 5.0, 0.0, 5.0, Color.CYAN,
-          Input.Keys.W, Input.Keys.A, Input.Keys.D, Input.Keys.E));
+        activeGameObjects.add(new Plane(this, assetManager.get("plane1.png", Texture.class),
+            new Vector2(Gdx.graphics.getWidth() / 3, Gdx.graphics.getHeight() / 2),
+            new Vector2(Gdx.graphics.getWidth() / 10, Gdx.graphics.getWidth() / 20),
+            new Vector2(512, 256),
+            200.0,
+            Input.Keys.W, Input.Keys.S, Input.Keys.A, Input.Keys.D, Input.Keys.E));
 
         for(GameObject gameObject : activeGameObjects)
         {
@@ -73,6 +77,7 @@ public class World
 
     void render(SpriteBatch batch)
     {
+        batch.draw(background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         for(GameObject gameObject : activeGameObjects)
         {
             gameObject.render(batch);
@@ -89,20 +94,21 @@ public class World
         }
     }
 
-    public void addBullet(Vector2 position, Vector2 dimension, double speed, double angle, Color colour)
+    public void addBullet(Vector2 position, Vector2 dimension, double speed, double angle)
     {
         for(GameObject gameObject : inactiveGameObjects)
         {
             if(gameObject instanceof Bullet)
             {
-                ((Bullet)gameObject).initialise(position, dimension, speed, angle, colour);
+                ((Bullet)gameObject).initialise(position, dimension, speed, angle);
                 activeGameObjectsToAdd.add(gameObject);
                 inactiveGameObjects.remove(gameObject);
                 return;
             }
         }
 
-        activeGameObjectsToAdd.add(new Bullet(this, position, dimension, speed, angle, colour));
+        activeGameObjectsToAdd.add(new Bullet(this, assetManager.get("bullet.png", Texture.class),
+          position, dimension, new Vector2(32, 16), speed, angle));
     }
 
     public void remove(GameObject gameObject)

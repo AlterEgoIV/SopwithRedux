@@ -10,6 +10,9 @@ public class DesktopLauncher
 	{
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.foregroundFPS = 60;
+		//config.width = LwjglApplicationConfiguration.getDesktopDisplayMode().width;
+		//config.height = LwjglApplicationConfiguration.getDesktopDisplayMode().height;
+		//config.fullscreen = true;
 		new LwjglApplication(new SopwithRedux(), config);
 	}
 }
