@@ -6,6 +6,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.sopwithredux.screens.MainMenuScreen;
 import com.sopwithredux.screens.PlayScreen;
 import com.sopwithredux.screens.ScreenName;
 
@@ -46,6 +47,7 @@ public class SopwithRedux extends Game
 
 	private void createScreens()
 	{
+		screens.put(ScreenName.MAINMENU_SCREEN, new MainMenuScreen(this, assetManager));
 		screens.put(ScreenName.PLAYSCREEN, new PlayScreen(this, assetManager));
 	}
 
