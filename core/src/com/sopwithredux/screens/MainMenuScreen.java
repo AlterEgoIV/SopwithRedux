@@ -2,19 +2,15 @@ package com.sopwithredux.screens;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.sopwithredux.SopwithRedux;
-import com.sopwithredux.World;
 
 /**
  * Created by Carl on 16/03/2017.
  */
-public class PlayScreen extends GameScreen
+public class MainMenuScreen extends GameScreen
 {
-    private World world;
-
-    public PlayScreen(SopwithRedux game, AssetManager assetManager)
+    public MainMenuScreen(SopwithRedux game, AssetManager assetManager)
     {
         super(game);
-        world = new World(assetManager);
     }
 
     @Override
@@ -26,12 +22,7 @@ public class PlayScreen extends GameScreen
     @Override
     public void render(float delta)
     {
-        world.update();
-        world.handleCollisions();
 
-        batch.begin();
-        world.render(batch);
-        batch.end();
     }
 
     @Override

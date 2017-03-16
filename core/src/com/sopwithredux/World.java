@@ -34,19 +34,7 @@ public class World
         collisionHandler = new CollisionHandler();
         background = assetManager.get("background.png", Texture.class);
 
-        activeGameObjects.add(new Plane(this, assetManager.get("plane1.png", Texture.class),
-            new Vector2(Gdx.graphics.getWidth() / 3, Gdx.graphics.getHeight() / 2),
-            new Vector2(Gdx.graphics.getWidth() / 10, Gdx.graphics.getWidth() / 20),
-            new Vector2(512, 256),
-            200.0, false, false,
-            Input.Keys.W, Input.Keys.S, Input.Keys.A, Input.Keys.D, Input.Keys.E));
-
-        activeGameObjects.add(new Plane(this, assetManager.get("plane2.png", Texture.class),
-          new Vector2(Gdx.graphics.getWidth() - Gdx.graphics.getWidth() / 3, Gdx.graphics.getHeight() / 2),
-          new Vector2(Gdx.graphics.getWidth() / 10, Gdx.graphics.getWidth() / 20),
-          new Vector2(512, 256),
-          200.0, true, false,
-          Input.Keys.UP, Input.Keys.DOWN, Input.Keys.LEFT, Input.Keys.RIGHT, Input.Keys.SHIFT_RIGHT));
+        createGameObjects();
 
         for(GameObject gameObject : activeGameObjects)
         {
@@ -57,7 +45,7 @@ public class World
         }
     }
 
-    void update()
+    public void update()
     {
         for(GameObject gameObject : activeGameObjects)
         {
@@ -77,18 +65,35 @@ public class World
         }
     }
 
-    void handleCollisions()
+    public void handleCollisions()
     {
         collisionHandler.handleCollisions();
     }
 
-    void render(SpriteBatch batch)
+    public void render(SpriteBatch batch)
     {
         batch.draw(background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         for(GameObject gameObject : activeGameObjects)
         {
             gameObject.render(batch);
         }
+    }
+
+    private void createGameObjects()
+    {
+        activeGameObjects.add(new Plane(this, assetManager.get("plane1.png", Texture.class),
+          new Vector2(Gdx.graphics.getWidth() / 3, Gdx.graphics.getHeight() / 2),
+          new Vector2(Gdx.graphics.getWidth() / 10, Gdx.graphics.getWidth() / 20),
+          new Vector2(512, 256),
+          200.0, false, false,
+          Input.Keys.W, Input.Keys.S, Input.Keys.A, Input.Keys.D, Input.Keys.E));
+
+        activeGameObjects.add(new Plane(this, assetManager.get("plane2.png", Texture.class),
+          new Vector2(Gdx.graphics.getWidth() - Gdx.graphics.getWidth() / 3, Gdx.graphics.getHeight() / 2),
+          new Vector2(Gdx.graphics.getWidth() / 10, Gdx.graphics.getWidth() / 20),
+          new Vector2(512, 256),
+          200.0, true, false,
+          Input.Keys.UP, Input.Keys.DOWN, Input.Keys.LEFT, Input.Keys.RIGHT, Input.Keys.SHIFT_RIGHT));
     }
 
     public void add(GameObject gameObject)

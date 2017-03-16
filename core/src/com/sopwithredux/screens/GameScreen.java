@@ -1,6 +1,7 @@
 package com.sopwithredux.screens;
 
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.sopwithredux.SopwithRedux;
 
 /**
@@ -9,9 +10,17 @@ import com.sopwithredux.SopwithRedux;
 public abstract class GameScreen implements Screen
 {
     protected SopwithRedux game;
+    protected SpriteBatch batch;
 
     protected GameScreen(SopwithRedux game)
     {
         this.game = game;
+        batch = new SpriteBatch();
+    }
+
+    @Override
+    public void dispose()
+    {
+        batch.dispose();
     }
 }
