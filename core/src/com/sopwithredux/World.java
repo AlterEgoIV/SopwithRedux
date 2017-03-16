@@ -6,10 +6,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
-import com.sopwithredux.gameobjects.Bullet;
-import com.sopwithredux.gameobjects.CollidableObject;
-import com.sopwithredux.gameobjects.GameObject;
-import com.sopwithredux.gameobjects.Plane;
+import com.sopwithredux.gameobjects.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -80,6 +77,21 @@ public class World
     }
 
     private void createGameObjects()
+    {
+        createClouds();
+        createPlanes();
+    }
+
+    private void createClouds()
+    {
+        activeGameObjects.add(new Cloud(this, assetManager.get("cloud.png", Texture.class),
+          new Vector2(Gdx.graphics.getWidth() - Gdx.graphics.getWidth() / 4, Gdx.graphics.getHeight() / 2),
+          new Vector2(Gdx.graphics.getWidth() / 20, Gdx.graphics.getHeight() / 20),
+          new Vector2(256, 128),
+          100.0, 0.0, false, false));
+    }
+
+    private void createPlanes()
     {
         activeGameObjects.add(new Plane(this, assetManager.get("plane1.png", Texture.class),
           new Vector2(Gdx.graphics.getWidth() / 3, Gdx.graphics.getHeight() / 2),
