@@ -86,17 +86,18 @@ public class World
     private void createClouds()
     {
         Random rand = new Random();
-        int randomWidth, randomHeight, randomPositionHeight, randomSpeed;
+        int randomWidth, randomHeight, randomX, randomY, randomSpeed;
 
         for(int i = 0; i < 30; ++i)
         {
             randomWidth = rand.nextInt(120) + 80;
-            randomHeight = rand.nextInt(75) + 20;
-            randomPositionHeight = rand.nextInt(Gdx.graphics.getHeight());
+            randomHeight = rand.nextInt(80) + 60;
+            randomX = rand.nextInt(Gdx.graphics.getWidth());
+            randomY = rand.nextInt(Gdx.graphics.getHeight()) + Gdx.graphics.getHeight() / 4;
             randomSpeed = rand.nextInt(200) + 20;
 
             activeGameObjects.add(new Cloud(this, assetManager.get("cloud.png", Texture.class),
-              new Vector2(Gdx.graphics.getWidth() + randomWidth / 2, randomPositionHeight),
+              new Vector2(randomX, randomY),
               new Vector2(randomWidth, randomHeight),
               new Vector2(256, 128),
               randomSpeed, 0.0, false, false));
