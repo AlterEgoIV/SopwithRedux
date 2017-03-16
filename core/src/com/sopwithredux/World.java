@@ -10,6 +10,7 @@ import com.sopwithredux.gameobjects.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by Carl on 08/03/2017.
@@ -84,11 +85,28 @@ public class World
 
     private void createClouds()
     {
-        activeGameObjects.add(new Cloud(this, assetManager.get("cloud.png", Texture.class),
-          new Vector2(Gdx.graphics.getWidth() - Gdx.graphics.getWidth() / 4, Gdx.graphics.getHeight() / 2),
-          new Vector2(Gdx.graphics.getWidth() / 20, Gdx.graphics.getHeight() / 20),
-          new Vector2(256, 128),
-          100.0, 0.0, false, false));
+        Random rand = new Random();
+        int randomWidth, randomHeight, randomPositionHeight, randomSpeed;
+
+        for(int i = 0; i < 30; ++i)
+        {
+            randomWidth = rand.nextInt(120) + 80;
+            randomHeight = rand.nextInt(75) + 20;
+            randomPositionHeight = rand.nextInt(Gdx.graphics.getHeight());
+            randomSpeed = rand.nextInt(200) + 20;
+
+            activeGameObjects.add(new Cloud(this, assetManager.get("cloud.png", Texture.class),
+              new Vector2(Gdx.graphics.getWidth() + randomWidth / 2, randomPositionHeight),
+              new Vector2(randomWidth, randomHeight),
+              new Vector2(256, 128),
+              randomSpeed, 0.0, false, false));
+        }
+
+//        activeGameObjects.add(new Cloud(this, assetManager.get("cloud.png", Texture.class),
+//          new Vector2(Gdx.graphics.getWidth() - Gdx.graphics.getWidth() / 4, Gdx.graphics.getHeight() / 2),
+//          new Vector2(Gdx.graphics.getWidth() / 20, Gdx.graphics.getHeight() / 20),
+//          new Vector2(256, 128),
+//          100.0, 0.0, false, false));
     }
 
     private void createPlanes()
