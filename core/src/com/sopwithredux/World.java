@@ -90,11 +90,11 @@ public class World
 
         for(int i = 0; i < 30; ++i)
         {
-            randomWidth = rand.nextInt(120) + 80;
-            randomHeight = rand.nextInt(80) + 60;
+            randomWidth = rand.nextInt(120) + 100;
+            randomHeight = rand.nextInt(60) + 50;
             randomX = rand.nextInt(Gdx.graphics.getWidth());
             randomY = rand.nextInt(Gdx.graphics.getHeight()) + Gdx.graphics.getHeight() / 4;
-            randomSpeed = rand.nextInt(200) + 20;
+            randomSpeed = rand.nextInt(200) + 100;
 
             activeGameObjects.add(new Cloud(this, assetManager.get("cloud.png", Texture.class),
               new Vector2(randomX, randomY),

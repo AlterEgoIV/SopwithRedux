@@ -20,5 +20,10 @@ public class Cloud extends GameObject
     public void update()
     {
         position.x -= speed * Gdx.graphics.getDeltaTime();
+
+        if(position.x < -dimension.x)
+        {
+            position.x = Gdx.graphics.getWidth() + dimension.x / 2;
+        }
     }
 }

@@ -4,6 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.sopwithredux.screens.MainMenuScreen;
@@ -17,6 +18,7 @@ public class SopwithRedux extends Game
 {
 	public Map<ScreenName, Screen> screens;
 	private AssetManager assetManager;
+	FPSLogger fpsLogger;
 
 	@Override
 	public void create()
@@ -28,6 +30,7 @@ public class SopwithRedux extends Game
 		screens = new HashMap<ScreenName, Screen>();
 		createScreens();
 		setScreen(screens.get(ScreenName.PLAYSCREEN));
+		fpsLogger = new FPSLogger();
 	}
 
 	@Override
@@ -37,6 +40,7 @@ public class SopwithRedux extends Game
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		super.render();
+		fpsLogger.log();
 	}
 
 	@Override
