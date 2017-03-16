@@ -38,7 +38,7 @@ public class World
             new Vector2(Gdx.graphics.getWidth() / 3, Gdx.graphics.getHeight() / 2),
             new Vector2(Gdx.graphics.getWidth() / 10, Gdx.graphics.getWidth() / 20),
             new Vector2(512, 256),
-            200.0,
+            200.0, false, false,
             Input.Keys.W, Input.Keys.S, Input.Keys.A, Input.Keys.D, Input.Keys.E));
 
         for(GameObject gameObject : activeGameObjects)
@@ -94,13 +94,13 @@ public class World
         }
     }
 
-    public void addBullet(Vector2 position, Vector2 dimension, double speed, double angle)
+    public void addBullet(Vector2 position, Vector2 dimension, double speed, double angle, boolean isFlippedX, boolean isFlippedY)
     {
         for(GameObject gameObject : inactiveGameObjects)
         {
             if(gameObject instanceof Bullet)
             {
-                ((Bullet)gameObject).initialise(position, dimension, speed, angle);
+                ((Bullet)gameObject).initialise(position, dimension, speed, angle, isFlippedX, isFlippedY);
                 activeGameObjectsToAdd.add(gameObject);
                 inactiveGameObjects.remove(gameObject);
                 return;
@@ -108,7 +108,7 @@ public class World
         }
 
         activeGameObjectsToAdd.add(new Bullet(this, assetManager.get("bullet.png", Texture.class),
-          position, dimension, new Vector2(32, 16), speed, angle));
+          position, dimension, new Vector2(32, 16), speed, angle, isFlippedX, isFlippedY));
     }
 
     public void remove(GameObject gameObject)

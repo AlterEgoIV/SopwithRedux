@@ -16,7 +16,8 @@ public abstract class GameObject
     protected Texture image;
     protected boolean isFlippedX, isFlippedY;
 
-    protected GameObject(World world, Texture image, Vector2 position, Vector2 dimension, Vector2 sourceDimension, double speed)
+    protected GameObject(World world, Texture image, Vector2 position, Vector2 dimension, Vector2 sourceDimension,
+                         double speed, boolean isFlippedX, boolean isFlippedY)
     {
         this.world = world;
         this.image = image;
@@ -24,12 +25,15 @@ public abstract class GameObject
         this.dimension = dimension;
         this.sourceDimension = sourceDimension;
         this.speed = speed;
-        isFlippedX = false;
-        isFlippedY = false;
+        this.isFlippedX = isFlippedX;
+        this.isFlippedY = isFlippedY;
+        //isFlippedX = false;
+        //isFlippedY = false;
         direction = new Vector2(0, 0);
     }
 
-    protected GameObject(World world, Texture image, Vector2 position, Vector2 dimension, Vector2 sourceDimension, double speed, double angle)
+    protected GameObject(World world, Texture image, Vector2 position, Vector2 dimension, Vector2 sourceDimension,
+                         double speed, double angle, boolean isFlippedX, boolean isFlippedY)
     {
         this.world = world;
         this.image = image;
@@ -38,6 +42,8 @@ public abstract class GameObject
         this.sourceDimension = sourceDimension;
         this.speed = speed;
         this.angle = angle;
+        this.isFlippedX = isFlippedX;
+        this.isFlippedY = isFlippedY;
         direction = new Vector2(0, 0);
     }
 

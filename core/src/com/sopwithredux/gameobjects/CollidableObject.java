@@ -17,9 +17,10 @@ public abstract class CollidableObject extends GameObject
     public Rectangle rectangle;
     private Texture rectangleImage;
 
-    protected CollidableObject(World world, Texture image, Vector2 position, Vector2 dimension, Vector2 sourceDimension, double speed)
+    protected CollidableObject(World world, Texture image, Vector2 position, Vector2 dimension, Vector2 sourceDimension,
+                               double speed, boolean isFlippedX, boolean isFlippedY)
     {
-        super(world, image, position, dimension, sourceDimension, speed);
+        super(world, image, position, dimension, sourceDimension, speed, isFlippedX, isFlippedY);
         rectangle = new Rectangle((int)position.x - (int)dimension.x / 2, (int)position.y - (int)dimension.y / 2,
           (int)dimension.x, (int)dimension.y);
 
@@ -30,9 +31,10 @@ public abstract class CollidableObject extends GameObject
         rectangleImage = new Texture(pixmap);
     }
 
-    protected CollidableObject(World world, Texture image, Vector2 position, Vector2 dimension, Vector2 sourceDimension, double speed, double angle)
+    protected CollidableObject(World world, Texture image, Vector2 position, Vector2 dimension, Vector2 sourceDimension,
+                               double speed, double angle, boolean isFlippedX, boolean isFlippedY)
     {
-        super(world, image, position, dimension, sourceDimension, speed, angle);
+        super(world, image, position, dimension, sourceDimension, speed, angle, isFlippedX, isFlippedY);
         rectangle = new Rectangle((int)position.x - (int)dimension.x / 2, (int)position.y - (int)dimension.y / 2,
           (int)dimension.x, (int)dimension.y);
 
@@ -60,7 +62,7 @@ public abstract class CollidableObject extends GameObject
           0,
           0, 0, (int)sourceDimension.x, (int)sourceDimension.y,
           isFlippedX, isFlippedY);
-        //batch.draw(rectangleImage, rectangle.x, rectangle.y);
+        batch.draw(rectangleImage, rectangle.x, rectangle.y);
     }
 
     public boolean collidesWith(CollidableObject collidableObject)

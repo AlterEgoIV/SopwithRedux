@@ -12,18 +12,21 @@ import com.sopwithredux.World;
  */
 public class Bullet extends Projectile
 {
-    public Bullet(World world, Texture image, Vector2 position, Vector2 dimension, Vector2 sourceDimension, double speed, double angle)
+    public Bullet(World world, Texture image, Vector2 position, Vector2 dimension, Vector2 sourceDimension,
+                  double speed, double angle, boolean isFlippedX, boolean isFlippedY)
     {
-        super(world, image, position, dimension, sourceDimension, speed, angle);
-        initialise(position, dimension, speed, angle);
+        super(world, image, position, dimension, sourceDimension, speed, angle, isFlippedX, isFlippedY);
+        initialise(position, dimension, speed, angle, isFlippedX, isFlippedY);
     }
 
-    public void initialise(Vector2 position, Vector2 dimension, double speed, double angle)
+    public void initialise(Vector2 position, Vector2 dimension, double speed, double angle, boolean isFlippedX, boolean isFlippedY)
     {
         this.position = position;
         this.dimension = dimension;
         this.speed = speed;
         this.angle = angle;
+        this.isFlippedX = isFlippedX;
+        this.isFlippedY = isFlippedY;
 
         direction.x = (float)Math.cos(Math.toRadians(angle));
         direction.y = (float)Math.sin(Math.toRadians(angle));

@@ -16,9 +16,9 @@ public class Plane extends CollidableObject implements InputHandler
     private int up, down, left, right, fire, coolDownTime, timeToCool;
 
     public Plane(World world, Texture image, Vector2 position, Vector2 dimension, Vector2 sourceDimension, double speed,
-                 int up, int down, int left, int right, int fire)
+                 boolean isFlippedX, boolean isFlippedY, int up, int down, int left, int right, int fire)
     {
-        super(world, image, position, dimension, sourceDimension, speed);
+        super(world, image, position, dimension, sourceDimension, speed, isFlippedX, isFlippedY);
         this.up = up;
         this.down = down;
         this.left = left;
@@ -57,12 +57,14 @@ public class Plane extends CollidableObject implements InputHandler
         if(Gdx.input.isKeyPressed(left))
         {
             position.x -= speed * Gdx.graphics.getDeltaTime();
+            angle = 180.0;
             if(!isFlippedX) isFlippedX = true;
         }
 
         if(Gdx.input.isKeyPressed(right))
         {
             position.x += speed * Gdx.graphics.getDeltaTime();
+            angle = 0.0;
             if(isFlippedX) isFlippedX = false;
         }
 
@@ -76,8 +78,17 @@ public class Plane extends CollidableObject implements InputHandler
     private void fireBullet()
     {
         Vector2 pos = new Vector2(this.position.x, this.position.y);
-        pos.add(dimension.x / 2 + 1, 0);
-        world.addBullet(pos, new Vector2(20, 10), speed * 3, angle);
+
+        if(isFlippedX)
+        {
+            pos.add(-dimension.x / 2 + 1, 0);
+        }
+        else
+        {
+            pos.add(dimension.x / 2 + 1, 0);
+        }
+
+        world.addBullet(pos, new Vector2(20, 10), speed, angle, isFlippedX, isFlippedY);
         //world.addBullet(new Vector2(position.x, position.y), new Vector2(10, 1), speed * 3, angle);
     }
 

@@ -9,9 +9,10 @@ import com.sopwithredux.World;
  */
 public abstract class Projectile extends CollidableObject
 {
-    protected Projectile(World world, Texture image, Vector2 position, Vector2 dimension, Vector2 sourceDimension, double speed, double angle)
+    protected Projectile(World world, Texture image, Vector2 position, Vector2 dimension, Vector2 sourceDimension,
+                         double speed, double angle, boolean isFlippedX, boolean isFlippedY)
     {
-        super(world, image, position, dimension, sourceDimension, speed, angle);
+        super(world, image, position, dimension, sourceDimension, speed, angle, isFlippedX, isFlippedY);
     }
 
     @Override
