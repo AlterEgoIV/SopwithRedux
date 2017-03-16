@@ -1,15 +1,21 @@
 package com.sopwithredux;
 
-import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.sopwithredux.screens.PlayScreen;
+import com.sopwithredux.screens.ScreenName;
 
-public class SopwithRedux extends ApplicationAdapter
+import java.util.HashMap;
+import java.util.Map;
+
+public class SopwithRedux extends Game
 {
+	private Map<ScreenName, Screen> screens;
 	private AssetManager assetManager;
 	private World world;
 	private SpriteBatch batch;
@@ -17,6 +23,10 @@ public class SopwithRedux extends ApplicationAdapter
 	@Override
 	public void create()
 	{
+		screens = new HashMap<ScreenName, Screen>();
+		createScreens();
+		setScreen(screens.get(ScreenName.PLAYSCREEN));
+
 		assetManager = new AssetManager();
 		loadAssets();
 
@@ -43,6 +53,11 @@ public class SopwithRedux extends ApplicationAdapter
 	{
 		assetManager.dispose();
 		batch.dispose();
+	}
+
+	private void createScreens()
+	{
+		screens.put(ScreenName.PLAYSCREEN, new PlayScreen(this));
 	}
 
 	private void loadAssets()
