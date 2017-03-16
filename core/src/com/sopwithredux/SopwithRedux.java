@@ -52,6 +52,13 @@ public class SopwithRedux extends ApplicationAdapter
 		assetManager.load("plane2.png", Texture.class);
 		assetManager.load("bullet.png", Texture.class);
 		assetManager.load("bomb.png", Texture.class);
+		assetManager.load("planeflash.png", Texture.class);
+		assetManager.load("cloud.png", Texture.class);
+		assetManager.load("bombpowerup.png", Texture.class);
+		assetManager.load("fuelpowerup.png", Texture.class);
+		assetManager.load("heart.png", Texture.class);
+		assetManager.load("outpost1.png", Texture.class);
+		assetManager.load("outpost2.png", Texture.class);
 		assetManager.finishLoading();
 	}
 }

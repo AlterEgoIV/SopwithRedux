@@ -29,15 +29,6 @@ public class Bullet extends Projectile
         direction.y = (float)Math.sin(Math.toRadians(angle));
         direction.scl((float)speed);
         //this.position.add(direction);
-
-        Pixmap pixmap = new Pixmap((int)dimension.x, (int)dimension.y, Pixmap.Format.RGBA8888);
-        pixmap.setColor(Color.BLACK);
-        pixmap.drawLine(0, 0, (int)dimension.x, 0);
-
-        image = new Texture(pixmap);
-        image.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear); // Reduces jagged lines
-
-        pixmap.dispose();
     }
 
     @Override

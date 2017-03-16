@@ -77,7 +77,7 @@ public class Plane extends CollidableObject implements InputHandler
     {
         Vector2 pos = new Vector2(this.position.x, this.position.y);
         pos.add(dimension.x / 2 + 1, 0);
-        world.addBullet(pos, new Vector2(10, 1), speed * 3, angle);
+        world.addBullet(pos, new Vector2(20, 10), speed * 3, angle);
         //world.addBullet(new Vector2(position.x, position.y), new Vector2(10, 1), speed * 3, angle);
     }
 
