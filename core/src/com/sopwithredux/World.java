@@ -41,6 +41,13 @@ public class World
             200.0, false, false,
             Input.Keys.W, Input.Keys.S, Input.Keys.A, Input.Keys.D, Input.Keys.E));
 
+        activeGameObjects.add(new Plane(this, assetManager.get("plane2.png", Texture.class),
+          new Vector2(Gdx.graphics.getWidth() - Gdx.graphics.getWidth() / 3, Gdx.graphics.getHeight() / 2),
+          new Vector2(Gdx.graphics.getWidth() / 10, Gdx.graphics.getWidth() / 20),
+          new Vector2(512, 256),
+          200.0, true, false,
+          Input.Keys.UP, Input.Keys.DOWN, Input.Keys.LEFT, Input.Keys.RIGHT, Input.Keys.SHIFT_RIGHT));
+
         for(GameObject gameObject : activeGameObjects)
         {
             if(gameObject instanceof CollidableObject)
