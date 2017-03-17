@@ -86,20 +86,20 @@ public class World
     private void createClouds()
     {
         Random rand = new Random();
-        int randomWidth, randomHeight, randomX, randomY, randomSpeed;
+        double randomWidth, randomHeight, randomX, randomY, randomSpeed;
 
         for(int i = 0; i < 30; ++i)
         {
             randomWidth = rand.nextInt(120) + 100;
             randomHeight = rand.nextInt(60) + 50;
             randomX = rand.nextInt(Gdx.graphics.getWidth());
-            randomY = rand.nextInt(Gdx.graphics.getHeight()) + Gdx.graphics.getHeight() / 4;
+            randomY = rand.nextInt(Gdx.graphics.getHeight()) + Gdx.graphics.getHeight() / 4.0f;
             randomSpeed = rand.nextInt(200) + 100;
 
             activeGameObjects.add(new Cloud(this, assetManager.get("cloud.png", Texture.class),
-              new Vector2(randomX, randomY),
-              new Vector2(randomWidth, randomHeight),
-              new Vector2(256, 128),
+              new Vector2((float)randomX, (float)randomY),
+              new Vector2((float)randomWidth, (float)randomHeight),
+              new Vector2(256.0f, 128.0f),
               randomSpeed, 0.0, false, false));
         }
 
@@ -113,16 +113,16 @@ public class World
     private void createPlanes()
     {
         activeGameObjects.add(new Plane(this, assetManager.get("plane1.png", Texture.class),
-          new Vector2(Gdx.graphics.getWidth() / 3, Gdx.graphics.getHeight() / 2),
-          new Vector2(Gdx.graphics.getWidth() / 10, Gdx.graphics.getWidth() / 20),
-          new Vector2(512, 256),
+          new Vector2(Gdx.graphics.getWidth() / 3.0f, Gdx.graphics.getHeight() / 2.0f),
+          new Vector2(Gdx.graphics.getWidth() / 10.0f, Gdx.graphics.getWidth() / 20.0f),
+          new Vector2(512.0f, 256.0f),
           200.0, false, false,
           Input.Keys.W, Input.Keys.S, Input.Keys.A, Input.Keys.D, Input.Keys.E));
 
         activeGameObjects.add(new Plane(this, assetManager.get("plane2.png", Texture.class),
-          new Vector2(Gdx.graphics.getWidth() - Gdx.graphics.getWidth() / 3, Gdx.graphics.getHeight() / 2),
-          new Vector2(Gdx.graphics.getWidth() / 10, Gdx.graphics.getWidth() / 20),
-          new Vector2(512, 256),
+          new Vector2(Gdx.graphics.getWidth() - (Gdx.graphics.getWidth() / 3.0f), Gdx.graphics.getHeight() / 2.0f),
+          new Vector2(Gdx.graphics.getWidth() / 10.0f, Gdx.graphics.getWidth() / 20.0f),
+          new Vector2(512.0f, 256.0f),
           200.0, true, false,
           Input.Keys.UP, Input.Keys.DOWN, Input.Keys.LEFT, Input.Keys.RIGHT, Input.Keys.SHIFT_RIGHT));
     }

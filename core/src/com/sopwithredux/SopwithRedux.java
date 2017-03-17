@@ -18,7 +18,7 @@ public class SopwithRedux extends Game
 {
 	public Map<ScreenName, Screen> screens;
 	private AssetManager assetManager;
-	FPSLogger fpsLogger;
+	//FPSLogger fpsLogger;
 
 	@Override
 	public void create()
@@ -30,7 +30,7 @@ public class SopwithRedux extends Game
 		screens = new HashMap<ScreenName, Screen>();
 		createScreens();
 		setScreen(screens.get(ScreenName.PLAYSCREEN));
-		fpsLogger = new FPSLogger();
+		//fpsLogger = new FPSLogger();
 	}
 
 	@Override
@@ -40,7 +40,8 @@ public class SopwithRedux extends Game
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		super.render();
-		fpsLogger.log();
+		//fpsLogger.log();
+		//System.out.println("Delta time: " + Gdx.graphics.getDeltaTime());
 	}
 
 	@Override

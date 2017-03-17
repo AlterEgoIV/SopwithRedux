@@ -14,40 +14,40 @@ import java.awt.Rectangle;
  */
 public abstract class CollidableObject extends GameObject
 {
-    public Rectangle rectangle;
-    private Texture rectangleImage;
+    public Rectangle hitBox;
+    private Texture hitBoxImage;
 
     protected CollidableObject(World world, Texture image, Vector2 position, Vector2 dimension, Vector2 sourceDimension,
                                double speed, boolean isFlippedX, boolean isFlippedY)
     {
         super(world, image, position, dimension, sourceDimension, speed, isFlippedX, isFlippedY);
-        rectangle = new Rectangle((int)position.x - (int)dimension.x / 2, (int)position.y - (int)dimension.y / 2,
+        hitBox = new Rectangle((int)position.x - (int)dimension.x / 2, (int)position.y - (int)dimension.y / 2,
           (int)dimension.x, (int)dimension.y);
 
         Pixmap pixmap = new Pixmap((int)dimension.x, (int)dimension.y, Pixmap.Format.RGBA8888);
         pixmap.setColor(Color.RED);
         pixmap.drawRectangle(0, 0, (int)dimension.x, (int)dimension.y);
 
-        rectangleImage = new Texture(pixmap);
+        hitBoxImage = new Texture(pixmap);
     }
 
     protected CollidableObject(World world, Texture image, Vector2 position, Vector2 dimension, Vector2 sourceDimension,
                                double speed, double angle, boolean isFlippedX, boolean isFlippedY)
     {
         super(world, image, position, dimension, sourceDimension, speed, angle, isFlippedX, isFlippedY);
-        rectangle = new Rectangle((int)position.x - (int)dimension.x / 2, (int)position.y - (int)dimension.y / 2,
+        hitBox = new Rectangle((int)position.x - (int)dimension.x / 2, (int)position.y - (int)dimension.y / 2,
           (int)dimension.x, (int)dimension.y);
 
         Pixmap pixmap = new Pixmap((int)dimension.x, (int)dimension.y, Pixmap.Format.RGBA8888);
         pixmap.setColor(Color.RED);
         pixmap.drawRectangle(0, 0, (int)dimension.x, (int)dimension.y);
 
-        rectangleImage = new Texture(pixmap);
+        hitBoxImage = new Texture(pixmap);
     }
 
-    protected void updateRectangle()
+    public void updateHitBox()
     {
-        rectangle.setLocation((int)position.x - (int)dimension.x / 2, (int)position.y - (int)dimension.y / 2);
+        hitBox.setLocation((int)position.x - (int)dimension.x / 2, (int)position.y - (int)dimension.y / 2);
     }
 
     @Override
@@ -62,13 +62,19 @@ public abstract class CollidableObject extends GameObject
           0,
           0, 0, (int)sourceDimension.x, (int)sourceDimension.y,
           isFlippedX, isFlippedY);
-        batch.draw(rectangleImage, rectangle.x, rectangle.y);
+        batch.draw(hitBoxImage, hitBox.x, hitBox.y);
     }
 
     public boolean collidesWith(CollidableObject collidableObject)
     {
-        // Returns true if the collidable object is not itself and there is a rectangle intersection
-        return !collidableObject.equals(this) && rectangle.intersects(collidableObject.rectangle);
+        // Returns true if the collidable object is not itself and there is a hitBox intersection
+        return collidableObject != this && hitBox.intersects(collidableObject.hitBox);
+    }
+
+    public void move(int x, int y)
+    {
+        position.x += x;
+        position.y += y;
     }
 
     public abstract void resolveCollision(CollidableObject collidableObject);

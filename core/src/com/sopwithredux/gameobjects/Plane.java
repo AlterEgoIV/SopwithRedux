@@ -36,7 +36,7 @@ public class Plane extends CollidableObject implements InputHandler
         direction.x = (float)Math.cos(Math.toRadians(angle));
         direction.y = (float)Math.sin(Math.toRadians(angle));
 
-        updateRectangle();
+        updateHitBox();
 
         if(timeToCool > 0) timeToCool--;
     }
@@ -78,6 +78,7 @@ public class Plane extends CollidableObject implements InputHandler
     private void fireBullet()
     {
         Vector2 pos = new Vector2(this.position.x, this.position.y);
+        //Vector2 p = position.cpy();
 
         if(isFlippedX)
         {
@@ -88,34 +89,36 @@ public class Plane extends CollidableObject implements InputHandler
             pos.add(dimension.x / 2 + 1, 0);
         }
 
-        world.addBullet(pos, new Vector2(20, 10), speed, angle, isFlippedX, isFlippedY);
+        world.addBullet(pos, new Vector2(20.0f, 10.0f), speed, angle, isFlippedX, isFlippedY);
         //world.addBullet(new Vector2(position.x, position.y), new Vector2(10, 1), speed * 3, angle);
     }
 
     @Override
     public void resolveCollision(CollidableObject collidableObject)
     {
-        Rectangle rect = rectangle.intersection(collidableObject.rectangle);
+        Rectangle rect = hitBox.intersection(collidableObject.hitBox);
 
         if(collidableObject instanceof Plane)
         {
-            if(rectangle.x < collidableObject.rectangle.x)
+            if(hitBox.x < collidableObject.hitBox.x)
             {
                 position.x -= rect.width;
             }
-            else if(rectangle.x > collidableObject.rectangle.x)
+            else if(hitBox.x > collidableObject.hitBox.x)
             {
                 position.x += rect.width;
             }
 
-            if(rectangle.y < collidableObject.rectangle.y)
+            if(hitBox.y < collidableObject.hitBox.y)
             {
                 position.y -= rect.height;
             }
-            else if(rectangle.y > collidableObject.rectangle.y)
+            else if(hitBox.y > collidableObject.hitBox.y)
             {
                 position.y += rect.height;
             }
         }
+
+        //updateHitBox();
     }
 }

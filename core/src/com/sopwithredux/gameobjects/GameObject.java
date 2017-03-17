@@ -62,4 +62,14 @@ public abstract class GameObject
           0, 0, (int)sourceDimension.x, (int)sourceDimension.y,
           isFlippedX, isFlippedY);
     }
+
+    public Vector2 getPosition()
+    {
+        return position;
+    }
+
+    public void setPosition(Vector2 position)
+    {
+        this.position = position;
+    }
 }
