@@ -5,5 +5,5 @@ package com.sopwithredux.screens;
  */
 public enum ScreenName
 {
-    MAINMENU_SCREEN, PLAYSCREEN
+    MAINMENU_SCREEN, PLAY_SCREEN
 }

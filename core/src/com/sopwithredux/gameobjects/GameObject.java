@@ -27,8 +27,6 @@ public abstract class GameObject
         this.speed = speed;
         this.isFlippedX = isFlippedX;
         this.isFlippedY = isFlippedY;
-        //isFlippedX = false;
-        //isFlippedY = false;
         direction = new Vector2(0, 0);
     }
 
@@ -51,8 +49,6 @@ public abstract class GameObject
 
     public void render(SpriteBatch batch)
     {
-        //batch.draw(image, position.x - dimension.x / 2, position.y - dimension.y / 2, dimension.x, dimension.y);
-
         batch.draw(image,
           position.x - dimension.x / 2, position.y - dimension.y / 2,
           dimension.x / 2, dimension.y / 2, // Origin is center point for rotation
@@ -61,15 +57,5 @@ public abstract class GameObject
           (float)angle,
           0, 0, (int)sourceDimension.x, (int)sourceDimension.y,
           isFlippedX, isFlippedY);
-    }
-
-    public Vector2 getPosition()
-    {
-        return position;
-    }
-
-    public void setPosition(Vector2 position)
-    {
-        this.position = position;
     }
 }

@@ -19,7 +19,7 @@ public class Cloud extends GameObject
     @Override
     public void update()
     {
-        position.x -= (float)speed * Gdx.graphics.getDeltaTime();
+        position.x -= speed * Gdx.graphics.getDeltaTime();
 
         if(position.x < -dimension.x)
         {

@@ -15,15 +15,9 @@ public abstract class Projectile extends CollidableObject
         super(world, image, position, dimension, sourceDimension, speed, angle, isFlippedX, isFlippedY);
     }
 
-    @Override
-    public void update()
-    {
-
-    }
-
-    @Override
-    public void resolveCollision(CollidableObject collidableObject)
-    {
-
-    }
+//    @Override
+//    public void resolveCollision(CollidableObject collidableObject)
+//    {
+//
+//    }
 }

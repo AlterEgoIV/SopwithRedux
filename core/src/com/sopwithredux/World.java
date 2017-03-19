@@ -102,12 +102,6 @@ public class World
               new Vector2(256.0f, 128.0f),
               randomSpeed, 0.0, false, false));
         }
-
-//        activeGameObjects.add(new Cloud(this, assetManager.get("cloud.png", Texture.class),
-//          new Vector2(Gdx.graphics.getWidth() - Gdx.graphics.getWidth() / 4, Gdx.graphics.getHeight() / 2),
-//          new Vector2(Gdx.graphics.getWidth() / 20, Gdx.graphics.getHeight() / 20),
-//          new Vector2(256, 128),
-//          100.0, 0.0, false, false));
     }
 
     private void createPlanes()
@@ -120,7 +114,8 @@ public class World
           Input.Keys.W, Input.Keys.S, Input.Keys.A, Input.Keys.D, Input.Keys.E));
 
         activeGameObjects.add(new Plane(this, assetManager.get("plane2.png", Texture.class),
-          new Vector2(Gdx.graphics.getWidth() - (Gdx.graphics.getWidth() / 3.0f), Gdx.graphics.getHeight() / 2.0f),
+          new Vector2(Gdx.graphics.getWidth() / 3.0f, Gdx.graphics.getHeight() / 2.0f),
+          /*new Vector2(Gdx.graphics.getWidth() - (Gdx.graphics.getWidth() / 3.0f), Gdx.graphics.getHeight() / 2.0f),*/
           new Vector2(Gdx.graphics.getWidth() / 10.0f, Gdx.graphics.getWidth() / 20.0f),
           new Vector2(512.0f, 256.0f),
           200.0, true, false,

@@ -9,11 +9,6 @@ public class Pair
 {
     private GameObject first, second;
 
-    public Pair()
-    {
-
-    }
-
     public Pair(GameObject first, GameObject second)
     {
         this.first = first;
@@ -34,10 +29,5 @@ public class Pair
     {
         this.first = first;
         this.second = second;
-    }
-
-    public boolean contains(GameObject first, GameObject second)
-    {
-        return this.first == first && this.second == second;
     }
 }

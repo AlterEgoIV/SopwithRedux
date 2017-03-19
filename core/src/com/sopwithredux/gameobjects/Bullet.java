@@ -29,7 +29,6 @@ public class Bullet extends Projectile
         direction.x = (float)Math.cos(Math.toRadians(angle));
         direction.y = (float)Math.sin(Math.toRadians(angle));
         direction.scl((float)speed);
-        //this.position.add(direction);
     }
 
     @Override
@@ -48,9 +47,9 @@ public class Bullet extends Projectile
         updateHitBox();
     }
 
-    @Override
-    public void resolveCollision(CollidableObject collidableObject)
-    {
-
-    }
+//    @Override
+//    public void resolveCollision(CollidableObject collidableObject)
+//    {
+//
+//    }
 }

@@ -53,7 +53,6 @@ public abstract class CollidableObject extends GameObject
     @Override
     public void render(SpriteBatch batch)
     {
-        //batch.draw(image, position.x - dimension.x / 2, position.y - dimension.y / 2, dimension.x, dimension.y);
         batch.draw(image,
           position.x - dimension.x / 2, position.y - dimension.y / 2,
           position.x - dimension.x / 2, position.y - dimension.y / 2, // Origin is center point for rotation
@@ -77,5 +76,5 @@ public abstract class CollidableObject extends GameObject
         position.y += y;
     }
 
-    public abstract void resolveCollision(CollidableObject collidableObject);
+    //public abstract void resolveCollision(CollidableObject collidableObject);
 }
