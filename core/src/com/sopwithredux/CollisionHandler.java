@@ -36,28 +36,15 @@ public class CollisionHandler
 
     private void detectCollisions()
     {
-        for(CollidableObject collidableObject : collidableObjects)
+        for(int i = 0; i < collidableObjects.size() - 1; ++i)
         {
-            for(CollidableObject otherCollidableObject : collidableObjects)
+            for(int j = i + 1; j < collidableObjects.size(); ++j)
             {
-                if(collidableObject.collidesWith(otherCollidableObject))
+                if(collidableObjects.get(i).collidesWith(collidableObjects.get(j)))
                 {
                     System.out.println("Collision!");
 
-                    boolean addPair = true;
-
-                    // This loop ensures no duplicate pairs are added
-                    for(Pair pair : collidedObjects)
-                    {
-                        if((pair.getFirst() == collidableObject && pair.getSecond() == otherCollidableObject) ||
-                           (pair.getFirst() == otherCollidableObject && pair.getSecond() == collidableObject))
-                        {
-                            addPair = false;
-                            break;
-                        }
-                    }
-
-                    if(addPair) collidedObjects.add(new Pair(collidableObject, otherCollidableObject));
+                    collidedObjects.add(new Pair(collidableObjects.get(i), collidableObjects.get(j)));
                 }
             }
         }
