@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.sopwithredux.gameobjects.*;
+import com.sopwithredux.input.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +20,7 @@ public class World
 {
     private AssetManager assetManager;
     private List<GameObject> activeGameObjects, inactiveGameObjects, activeGameObjectsToAdd, activeGameObjectsToRemove;
+    private ObjectInputProcessor objectInputProcessor;
     private CollisionHandler collisionHandler;
     private Texture background;
 
@@ -29,6 +31,8 @@ public class World
         inactiveGameObjects = new ArrayList<GameObject>();
         activeGameObjectsToAdd = new ArrayList<GameObject>();
         activeGameObjectsToRemove = new ArrayList<GameObject>();
+        objectInputProcessor = new ObjectInputProcessor();
+        Gdx.input.setInputProcessor(objectInputProcessor);
         collisionHandler = new CollisionHandler();
         background = assetManager.get("background.png", Texture.class);
 
@@ -36,10 +40,8 @@ public class World
 
         for(GameObject gameObject : activeGameObjects)
         {
-            if(gameObject instanceof CollidableObject)
-            {
-                collisionHandler.add((CollidableObject)gameObject);
-            }
+            if(gameObject instanceof InputHandler) objectInputProcessor.add((InputHandler)gameObject);
+            if(gameObject instanceof CollidableObject) collisionHandler.add((CollidableObject)gameObject);
         }
     }
 
@@ -124,12 +126,15 @@ public class World
 
     public void add(GameObject gameObject)
     {
+        if(activeGameObjects.contains(gameObject))
+        {
+            throw new AssertionError("Attempting to add already existing gameObject to activeGameObjects");
+        }
+
         activeGameObjectsToAdd.add(gameObject);
 
-        if(gameObject instanceof CollidableObject)
-        {
-            collisionHandler.add((CollidableObject)gameObject);
-        }
+        if(gameObject instanceof InputHandler) objectInputProcessor.add((InputHandler)gameObject);
+        if(gameObject instanceof CollidableObject) collisionHandler.add((CollidableObject)gameObject);
     }
 
     public void addBullet(Vector2 position, Vector2 dimension, double speed, double angle, boolean isFlippedX, boolean isFlippedY)
@@ -141,27 +146,35 @@ public class World
                 ((Bullet)gameObject).initialise(position, dimension, speed, angle, isFlippedX, isFlippedY);
                 activeGameObjectsToAdd.add(gameObject);
                 inactiveGameObjects.remove(gameObject);
+                collisionHandler.add((CollidableObject)gameObject);
                 return;
             }
         }
 
-        activeGameObjectsToAdd.add(new Bullet(this, assetManager.get("bullet.png", Texture.class),
-          position, dimension, new Vector2(32, 16), speed, angle, isFlippedX, isFlippedY));
+        Bullet bullet = new Bullet(this, assetManager.get("bullet.png", Texture.class),
+          position, dimension, new Vector2(32, 16), speed, angle, isFlippedX, isFlippedY);
+
+        activeGameObjectsToAdd.add(bullet);
+
+        // This is okay so long as there are no Bullets in inactiveGameObjects before Bullets are created here
+        collisionHandler.add(bullet);
     }
 
     public void remove(GameObject gameObject)
     {
         if(!activeGameObjects.contains(gameObject))
         {
-            throw new AssertionError("Attempting to remove non-active GameObject");
+            throw new AssertionError("Attempting to remove non active GameObject");
         }
 
         inactiveGameObjects.add(gameObject);
         activeGameObjectsToRemove.add(gameObject);
 
-        if(gameObject instanceof CollidableObject)
-        {
-            collisionHandler.remove((CollidableObject)gameObject);
-        }
+        // Okay, only existing InputHandlers in objectInputProcessor will process events
+        // Input events are processed just before the start of each frame (Game.render())
+        if(gameObject instanceof InputHandler) objectInputProcessor.remove((InputHandler)gameObject);
+
+        // Okay, CollisionHandler doesn't do anything until all objects have updated
+        if(gameObject instanceof CollidableObject) collisionHandler.remove((CollidableObject)gameObject);
     }
 }

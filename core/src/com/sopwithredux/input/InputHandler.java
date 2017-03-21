@@ -6,4 +6,6 @@ package com.sopwithredux.input;
 public interface InputHandler
 {
     void handleInput();
+    void handleKeyPress(int keyCode);
+    void handleKeyRelease(int keyCode);
 }

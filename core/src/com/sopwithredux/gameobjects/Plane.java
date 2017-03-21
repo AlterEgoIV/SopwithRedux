@@ -31,10 +31,15 @@ public class Plane extends CollidableObject implements InputHandler
     @Override
     public void update()
     {
-        handleInput();
+        //handleInput();
 
         direction.x = (float)Math.cos(Math.toRadians(angle));
         direction.y = (float)Math.sin(Math.toRadians(angle));
+
+//        if(Gdx.input.isKeyPressed(up))
+//        {
+//            world.remove(this);
+//        }
 
         updateHitBox();
 
@@ -73,6 +78,18 @@ public class Plane extends CollidableObject implements InputHandler
             timeToCool = coolDownTime;
             fireBullet();
         }
+    }
+
+    @Override
+    public void handleKeyPress(int keyCode)
+    {
+
+    }
+
+    @Override
+    public void handleKeyRelease(int keyCode)
+    {
+
     }
 
     private void fireBullet()
