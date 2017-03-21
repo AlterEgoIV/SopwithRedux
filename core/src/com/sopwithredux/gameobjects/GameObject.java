@@ -17,20 +17,6 @@ public abstract class GameObject
     protected boolean isFlippedX, isFlippedY;
 
     protected GameObject(World world, Texture image, Vector2 position, Vector2 dimension, Vector2 sourceDimension,
-                         double speed, boolean isFlippedX, boolean isFlippedY)
-    {
-        this.world = world;
-        this.image = image;
-        this.position = position;
-        this.dimension = dimension;
-        this.sourceDimension = sourceDimension;
-        this.speed = speed;
-        this.isFlippedX = isFlippedX;
-        this.isFlippedY = isFlippedY;
-        direction = new Vector2(0, 0);
-    }
-
-    protected GameObject(World world, Texture image, Vector2 position, Vector2 dimension, Vector2 sourceDimension,
                          double speed, double angle, boolean isFlippedX, boolean isFlippedY)
     {
         this.world = world;

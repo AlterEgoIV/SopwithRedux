@@ -18,20 +18,6 @@ public abstract class CollidableObject extends GameObject
     private Texture hitBoxImage;
 
     protected CollidableObject(World world, Texture image, Vector2 position, Vector2 dimension, Vector2 sourceDimension,
-                               double speed, boolean isFlippedX, boolean isFlippedY)
-    {
-        super(world, image, position, dimension, sourceDimension, speed, isFlippedX, isFlippedY);
-        hitBox = new Rectangle((int)position.x - (int)dimension.x / 2, (int)position.y - (int)dimension.y / 2,
-          (int)dimension.x, (int)dimension.y);
-
-        Pixmap pixmap = new Pixmap((int)dimension.x, (int)dimension.y, Pixmap.Format.RGBA8888);
-        pixmap.setColor(Color.RED);
-        pixmap.drawRectangle(0, 0, (int)dimension.x, (int)dimension.y);
-
-        hitBoxImage = new Texture(pixmap);
-    }
-
-    protected CollidableObject(World world, Texture image, Vector2 position, Vector2 dimension, Vector2 sourceDimension,
                                double speed, double angle, boolean isFlippedX, boolean isFlippedY)
     {
         super(world, image, position, dimension, sourceDimension, speed, angle, isFlippedX, isFlippedY);
@@ -74,6 +60,12 @@ public abstract class CollidableObject extends GameObject
     {
         position.x += x;
         position.y += y;
+    }
+
+    public void moveBack(float x, float y)
+    {
+        direction.scl(x, y);
+        position.sub(direction);
     }
 
     //public abstract void resolveCollision(CollidableObject collidableObject);

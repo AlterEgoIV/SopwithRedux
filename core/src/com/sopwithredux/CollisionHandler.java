@@ -58,27 +58,28 @@ public class CollisionHandler
         {
             if(collidedObject2 instanceof Plane)
             {
-                if(collidedObject1.hitBox.x < collidedObject2.hitBox.x)
-                {
-                    collidedObject1.move(-rect.width / 2, 0);
-                    collidedObject2.move(rect.width / 2, 0);
-                }
-                else if(collidedObject1.hitBox.x > collidedObject2.hitBox.x)
-                {
-                    collidedObject1.move(rect.width / 2, 0);
-                    collidedObject2.move(-rect.width / 2, 0);
-                }
-
-                if(collidedObject1.hitBox.y < collidedObject2.hitBox.y)
-                {
-                    collidedObject1.move(0, -rect.height / 2);
-                    collidedObject2.move(0, rect.height / 2);
-                }
-                else if(collidedObject1.hitBox.y > collidedObject2.hitBox.y)
-                {
-                    collidedObject1.move(0, rect.height);
-                    collidedObject2.move(0, -rect.height);
-                }
+                //collidedObject1.moveBack((float)rect.getWidth(), (float)rect.getHeight());
+//                if(collidedObject1.hitBox.x < collidedObject2.hitBox.x)
+//                {
+//                    collidedObject1.move(-rect.width / 2, 0);
+//                    collidedObject2.move(rect.width / 2, 0);
+//                }
+//                else if(collidedObject1.hitBox.x > collidedObject2.hitBox.x)
+//                {
+//                    collidedObject1.move(rect.width / 2, 0);
+//                    collidedObject2.move(-rect.width / 2, 0);
+//                }
+//
+//                if(collidedObject1.hitBox.y < collidedObject2.hitBox.y)
+//                {
+//                    collidedObject1.move(0, -rect.height / 2);
+//                    collidedObject2.move(0, rect.height / 2);
+//                }
+//                else if(collidedObject1.hitBox.y > collidedObject2.hitBox.y)
+//                {
+//                    collidedObject1.move(0, rect.height);
+//                    collidedObject2.move(0, -rect.height);
+//                }
             }
         }
 
