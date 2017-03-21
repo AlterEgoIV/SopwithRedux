@@ -12,11 +12,12 @@ import com.sopwithredux.World;
 public class Plane extends CollidableObject implements InputHandler
 {
     private int up, down, left, right, fire, coolDownTime, timeToCool;
+    private double maxSpeed;
 
     public Plane(World world, Texture image, Vector2 position, Vector2 dimension, Vector2 sourceDimension, double speed,
-                 boolean isFlippedX, boolean isFlippedY, int up, int down, int left, int right, int fire)
+                 double angle, boolean isFlippedX, boolean isFlippedY, int up, int down, int left, int right, int fire)
     {
-        super(world, image, position, dimension, sourceDimension, speed, isFlippedX, isFlippedY);
+        super(world, image, position, dimension, sourceDimension, speed, angle, isFlippedX, isFlippedY);
         this.up = up;
         this.down = down;
         this.left = left;
@@ -24,6 +25,7 @@ public class Plane extends CollidableObject implements InputHandler
         this.fire = fire;
         coolDownTime = 60 / 4;
         timeToCool = 0;
+        maxSpeed = this.speed;
     }
 
     @Override
@@ -86,7 +88,7 @@ public class Plane extends CollidableObject implements InputHandler
             pos.add(dimension.x / 2 + 1, 0);
         }
 
-        world.addBullet(pos, new Vector2(20.0f, 10.0f), speed * 3, angle, isFlippedX, isFlippedY);
+        world.addBullet(pos, new Vector2(20.0f, 10.0f), maxSpeed * 3, angle, isFlippedX, isFlippedY);
     }
 
 //    @Override
