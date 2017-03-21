@@ -3,7 +3,7 @@ package com.sopwithredux.gameobjects;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
-import com.sopwithredux.InputHandler;
+import com.sopwithredux.input.InputHandler;
 import com.sopwithredux.World;
 
 /**

@@ -1,4 +1,4 @@
-package com.sopwithredux;
+package com.sopwithredux.input;
 
 /**
  * Created by Carl on 08/03/2017.
