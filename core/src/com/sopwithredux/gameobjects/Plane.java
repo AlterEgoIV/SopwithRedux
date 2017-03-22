@@ -13,6 +13,7 @@ public class Plane extends CollidableObject implements InputHandler
 {
     private int up, down, left, right, fire, coolDownTime, timeToCool;
     private double maxSpeed;
+    boolean movingUp, movingDown, movingLeft, movingRight, firingBullet;
 
     public Plane(World world, Texture image, Vector2 position, Vector2 dimension, Vector2 sourceDimension, double speed,
                  double angle, boolean isFlippedX, boolean isFlippedY, int up, int down, int left, int right, int fire)
@@ -26,6 +27,11 @@ public class Plane extends CollidableObject implements InputHandler
         coolDownTime = 60 / 4;
         timeToCool = 0;
         maxSpeed = this.speed;
+        movingUp = false;
+        movingDown = false;
+        movingLeft = false;
+        movingRight = false;
+        firingBullet = false;
     }
 
     @Override
@@ -33,13 +39,40 @@ public class Plane extends CollidableObject implements InputHandler
     {
         //handleInput();
 
-        direction.x = (float)Math.cos(Math.toRadians(angle));
-        direction.y = (float)Math.sin(Math.toRadians(angle));
+        if(movingUp)
+        {
+            position.y += speed * Gdx.graphics.getDeltaTime();
+            //angle = 90.0;
+        }
 
-//        if(Gdx.input.isKeyPressed(up))
-//        {
-//            world.remove(this);
-//        }
+        if(movingDown)
+        {
+            position.y -= speed * Gdx.graphics.getDeltaTime();
+            //angle = 270.0;
+        }
+
+        if(movingLeft)
+        {
+            position.x -= speed * Gdx.graphics.getDeltaTime();
+            angle = 180.0;
+            if(!isFlippedX) isFlippedX = true;
+        }
+
+        if(movingRight)
+        {
+            position.x += speed * Gdx.graphics.getDeltaTime();
+            angle = 0.0;
+            if(isFlippedX) isFlippedX = false;
+        }
+
+        if(firingBullet && timeToCool == 0)
+        {
+            timeToCool = coolDownTime;
+            fireBullet();
+        }
+
+        //direction.x = (float)Math.cos(Math.toRadians(angle));
+        //direction.y = (float)Math.sin(Math.toRadians(angle));
 
         updateHitBox();
 
@@ -83,13 +116,78 @@ public class Plane extends CollidableObject implements InputHandler
     @Override
     public void handleKeyPress(int keyCode)
     {
+        if(keyCode == up)
+        {
+            //direction.x = (float)Math.cos(Math.toRadians(90.0));
+            //direction.y = (float)Math.sin(Math.toRadians(90.0));
+            movingUp = true;
+        }
 
+        if(keyCode == down)
+        {
+            //direction.x = (float)Math.cos(Math.toRadians(270.0));
+            //direction.y = (float)Math.sin(Math.toRadians(270.0));
+            movingDown = true;
+        }
+
+        if(keyCode == left)
+        {
+            //direction.x = (float)Math.cos(Math.toRadians(180.0));
+            //direction.y = (float)Math.sin(Math.toRadians(180.0));
+            movingLeft = true;
+        }
+
+        if(keyCode == right)
+        {
+            //direction.x = (float)Math.cos(Math.toRadians(0.0));
+            //direction.y = (float)Math.sin(Math.toRadians(0.0));
+            movingRight = true;
+        }
+
+        //direction.x = 0.0f;
+        //direction.y = 0.0f;
+
+        if(keyCode == fire)
+        {
+            firingBullet = true;
+        }
     }
 
     @Override
     public void handleKeyRelease(int keyCode)
     {
+        if(keyCode == up)
+        {
+            //direction.x = (float)Math.cos(Math.toRadians(90.0));
+            //direction.y = (float)Math.sin(Math.toRadians(90.0));
+            movingUp = false;
+        }
 
+        if(keyCode == down)
+        {
+            //direction.x = (float)Math.cos(Math.toRadians(270.0));
+            //direction.y = (float)Math.sin(Math.toRadians(270.0));
+            movingDown = false;
+        }
+
+        if(keyCode == left)
+        {
+            //direction.x = (float)Math.cos(Math.toRadians(180.0));
+            //direction.y = (float)Math.sin(Math.toRadians(180.0));
+            movingLeft = false;
+        }
+
+        if(keyCode == right)
+        {
+            //direction.x = (float)Math.cos(Math.toRadians(0.0));
+            //direction.y = (float)Math.sin(Math.toRadians(0.0));
+            movingRight = false;
+        }
+
+        if(keyCode == fire)
+        {
+            firingBullet = false;
+        }
     }
 
     private void fireBullet()
