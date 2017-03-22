@@ -68,5 +68,7 @@ public abstract class CollidableObject extends GameObject
         position.sub(direction);
     }
 
-    //public abstract void resolveCollision(CollidableObject collidableObject);
+    public abstract void resolveCollision(CollidableObject collidableObject);
+    public abstract void resolvePlaneCollision(Plane plane);
+    public abstract void resolveBulletCollision(Bullet bullet);
 }

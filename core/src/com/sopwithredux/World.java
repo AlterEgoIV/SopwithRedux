@@ -36,10 +36,7 @@ public class World
 
         for(GameObject gameObject : activeGameObjects)
         {
-            if(gameObject instanceof CollidableObject)
-            {
-                collisionHandler.add((CollidableObject)gameObject);
-            }
+            if(gameObject instanceof CollidableObject) collisionHandler.add((CollidableObject)gameObject);
         }
     }
 
@@ -124,12 +121,13 @@ public class World
 
     public void add(GameObject gameObject)
     {
-        activeGameObjectsToAdd.add(gameObject);
-
-        if(gameObject instanceof CollidableObject)
+        if(activeGameObjects.contains(gameObject))
         {
-            collisionHandler.add((CollidableObject)gameObject);
+            throw new AssertionError("Attempting to add already existing gameObject to activeGameObjects");
         }
+
+        activeGameObjectsToAdd.add(gameObject);
+        if(gameObject instanceof CollidableObject) collisionHandler.add((CollidableObject)gameObject);
     }
 
     public void addBullet(Vector2 position, Vector2 dimension, double speed, double angle, boolean isFlippedX, boolean isFlippedY)
@@ -141,27 +139,31 @@ public class World
                 ((Bullet)gameObject).initialise(position, dimension, speed, angle, isFlippedX, isFlippedY);
                 activeGameObjectsToAdd.add(gameObject);
                 inactiveGameObjects.remove(gameObject);
+                collisionHandler.add((CollidableObject)gameObject);
                 return;
             }
         }
 
-        activeGameObjectsToAdd.add(new Bullet(this, assetManager.get("bullet.png", Texture.class),
-          position, dimension, new Vector2(32, 16), speed, angle, isFlippedX, isFlippedY));
+        Bullet bullet = new Bullet(this, assetManager.get("bullet.png", Texture.class),
+          position, dimension, new Vector2(32, 16), speed, angle, isFlippedX, isFlippedY);
+
+        activeGameObjectsToAdd.add(bullet);
+
+        // This is okay so long as there are no Bullets in inactiveGameObjects before Bullets are created here
+        collisionHandler.add(bullet);
     }
 
     public void remove(GameObject gameObject)
     {
         if(!activeGameObjects.contains(gameObject))
         {
-            throw new AssertionError("Attempting to remove non-active GameObject");
+            throw new AssertionError("Attempting to remove non active GameObject");
         }
 
         inactiveGameObjects.add(gameObject);
         activeGameObjectsToRemove.add(gameObject);
 
-        if(gameObject instanceof CollidableObject)
-        {
-            collisionHandler.remove((CollidableObject)gameObject);
-        }
+        // Okay, CollisionHandler doesn't do anything until all objects have updated
+        if(gameObject instanceof CollidableObject) collisionHandler.remove((CollidableObject)gameObject);
     }
 }

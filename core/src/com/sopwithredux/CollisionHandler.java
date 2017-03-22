@@ -1,5 +1,6 @@
 package com.sopwithredux;
 
+import com.sopwithredux.gameobjects.Bullet;
 import com.sopwithredux.gameobjects.CollidableObject;
 import com.sopwithredux.gameobjects.Plane;
 import com.sopwithredux.utilities.Pair;
@@ -59,32 +60,45 @@ public class CollisionHandler
             if(collidedObject2 instanceof Plane)
             {
                 //collidedObject1.moveBack((float)rect.getWidth(), (float)rect.getHeight());
-//                if(collidedObject1.hitBox.x < collidedObject2.hitBox.x)
-//                {
-//                    collidedObject1.move(-rect.width / 2, 0);
-//                    collidedObject2.move(rect.width / 2, 0);
-//                }
-//                else if(collidedObject1.hitBox.x > collidedObject2.hitBox.x)
-//                {
-//                    collidedObject1.move(rect.width / 2, 0);
-//                    collidedObject2.move(-rect.width / 2, 0);
-//                }
-//
-//                if(collidedObject1.hitBox.y < collidedObject2.hitBox.y)
-//                {
-//                    collidedObject1.move(0, -rect.height / 2);
-//                    collidedObject2.move(0, rect.height / 2);
-//                }
-//                else if(collidedObject1.hitBox.y > collidedObject2.hitBox.y)
-//                {
-//                    collidedObject1.move(0, rect.height);
-//                    collidedObject2.move(0, -rect.height);
-//                }
+                if(collidedObject1.hitBox.x < collidedObject2.hitBox.x)
+                {
+                    collidedObject1.move(-rect.width / 2, 0);
+                    collidedObject2.move(rect.width / 2, 0);
+                }
+                else if(collidedObject1.hitBox.x > collidedObject2.hitBox.x)
+                {
+                    collidedObject1.move(rect.width / 2, 0);
+                    collidedObject2.move(-rect.width / 2, 0);
+                }
+
+                if(collidedObject1.hitBox.y < collidedObject2.hitBox.y)
+                {
+                    collidedObject1.move(0, -rect.height / 2);
+                    collidedObject2.move(0, rect.height / 2);
+                }
+                else if(collidedObject1.hitBox.y > collidedObject2.hitBox.y)
+                {
+                    collidedObject1.move(0, rect.height);
+                    collidedObject2.move(0, -rect.height);
+                }
+
+                collidedObject1.updateHitBox();
+                collidedObject2.updateHitBox();
+            }
+
+            if(collidedObject2 instanceof Bullet)
+            {
+                collidedObject1.resolveBulletCollision((Bullet)collidedObject2);
             }
         }
 
-        collidedObject1.updateHitBox();
-        collidedObject2.updateHitBox();
+//        if(collidedObject1 instanceof Bullet)
+//        {
+//            if(collidedObject2 instanceof Plane)
+//            {
+//                collidedObject1.resolvePlaneCollision((Plane)collidedObject2);
+//            }
+//        }
     }
 
     public void add(CollidableObject collidableObject)

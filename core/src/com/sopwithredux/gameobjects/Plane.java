@@ -6,6 +6,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.sopwithredux.InputHandler;
 import com.sopwithredux.World;
 
+import java.awt.*;
+
 /**
  * Created by Carl on 08/03/2017.
  */
@@ -78,45 +80,64 @@ public class Plane extends CollidableObject implements InputHandler
     private void fireBullet()
     {
         Vector2 pos = position.cpy();
+        Vector2 dim = new Vector2(20.0f, 10.0f);
 
         if(isFlippedX)
         {
-            pos.add(-dimension.x / 2 + 1, 0);
+            pos.add(((-dimension.x / 2) - dim.x / 2) - 1, 0);
         }
         else
         {
-            pos.add(dimension.x / 2 + 1, 0);
+            pos.add(((dimension.x / 2) + dim.x / 2) + 1, 0);
         }
 
-        world.addBullet(pos, new Vector2(20.0f, 10.0f), maxSpeed * 3, angle, isFlippedX, isFlippedY);
+        world.addBullet(pos, dim, maxSpeed * 3, angle, isFlippedX, isFlippedY);
     }
 
-//    @Override
-//    public void resolveCollision(CollidableObject collidableObject)
-//    {
-//        Rectangle rect = hitBox.intersection(collidableObject.hitBox);
-//
-//        if(collidableObject instanceof Plane)
+    @Override
+    public void resolveCollision(CollidableObject collidableObject)
+    {
+        Rectangle rect = hitBox.intersection(collidableObject.hitBox);
+
+        if(collidableObject instanceof Plane)
+        {
+            if(hitBox.x < collidableObject.hitBox.x)
+            {
+                position.x -= rect.getWidth();
+            }
+            else if(hitBox.x > collidableObject.hitBox.x)
+            {
+                position.x += rect.getWidth();
+            }
+
+            if(hitBox.y < collidableObject.hitBox.y)
+            {
+                position.y -= rect.getHeight();
+            }
+            else if(hitBox.y > collidableObject.hitBox.y)
+            {
+                position.y += rect.getHeight();
+            }
+
+            updateHitBox();
+            collidableObject.updateHitBox();
+        }
+
+//        if(collidableObject instanceof Bullet)
 //        {
-//            if(hitBox.x < collidableObject.hitBox.x)
-//            {
-//                position.x -= rect.width;
-//            }
-//            else if(hitBox.x > collidableObject.hitBox.x)
-//            {
-//                position.x += rect.width;
-//            }
-//
-//            if(hitBox.y < collidableObject.hitBox.y)
-//            {
-//                position.y -= rect.height;
-//            }
-//            else if(hitBox.y > collidableObject.hitBox.y)
-//            {
-//                position.y += rect.height;
-//            }
+//            world.remove(collidableObject);
 //        }
-//
-//        //updateHitBox();
-//    }
+    }
+
+    @Override
+    public void resolvePlaneCollision(Plane plane)
+    {
+
+    }
+
+    @Override
+    public void resolveBulletCollision(Bullet bullet)
+    {
+        world.remove(bullet);
+    }
 }

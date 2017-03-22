@@ -5,6 +5,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.sopwithredux.World;
 
+import java.awt.*;
+
 /**
  * Created by Carl on 08/03/2017.
  */
@@ -47,9 +49,24 @@ public class Bullet extends Projectile
         updateHitBox();
     }
 
-//    @Override
-//    public void resolveCollision(CollidableObject collidableObject)
-//    {
-//
-//    }
+    @Override
+    public void resolveCollision(CollidableObject collidableObject)
+    {
+        if(collidableObject instanceof Plane)
+        {
+            world.remove(this);
+        }
+    }
+
+    @Override
+    public void resolvePlaneCollision(Plane plane)
+    {
+
+    }
+
+    @Override
+    public void resolveBulletCollision(Bullet bullet)
+    {
+        world.remove(this);
+    }
 }
