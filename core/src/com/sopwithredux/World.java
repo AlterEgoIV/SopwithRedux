@@ -132,17 +132,17 @@ public class World
 
     public void addBullet(Vector2 position, Vector2 dimension, double speed, double angle, boolean isFlippedX, boolean isFlippedY)
     {
-        for(GameObject gameObject : inactiveGameObjects)
-        {
-            if(gameObject instanceof Bullet)
-            {
-                ((Bullet)gameObject).initialise(position, dimension, speed, angle, isFlippedX, isFlippedY);
-                activeGameObjectsToAdd.add(gameObject);
-                inactiveGameObjects.remove(gameObject);
-                collisionHandler.add((CollidableObject)gameObject);
-                return;
-            }
-        }
+//        for(GameObject gameObject : inactiveGameObjects)
+//        {
+//            if(gameObject instanceof Bullet)
+//            {
+//                ((Bullet)gameObject).initialise(position, dimension, speed, angle, isFlippedX, isFlippedY);
+//                activeGameObjectsToAdd.add(gameObject);
+//                inactiveGameObjects.remove(gameObject);
+//                collisionHandler.add((CollidableObject)gameObject);
+//                return;
+//            }
+//        }
 
         Bullet bullet = new Bullet(this, assetManager.get("bullet.png", Texture.class),
           position, dimension, new Vector2(32, 16), speed, angle, isFlippedX, isFlippedY);
@@ -160,7 +160,7 @@ public class World
             throw new AssertionError("Attempting to remove non active GameObject");
         }
 
-        inactiveGameObjects.add(gameObject);
+        //inactiveGameObjects.add(gameObject);
         activeGameObjectsToRemove.add(gameObject);
 
         // Okay, CollisionHandler doesn't do anything until all objects have updated
