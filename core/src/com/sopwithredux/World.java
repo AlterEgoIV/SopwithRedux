@@ -77,6 +77,7 @@ public class World
     private void createGameObjects()
     {
         createClouds();
+        createOutposts();
         createPlanes();
     }
 
@@ -98,6 +99,31 @@ public class World
               new Vector2((float)randomWidth, (float)randomHeight),
               new Vector2(256.0f, 128.0f),
               randomSpeed, 0.0, false, false));
+        }
+    }
+
+    private void createOutposts()
+    {
+        Random rand = new Random();
+        double randomX;
+
+        for(int i = 0; i < 5; ++i)
+        {
+            randomX = rand.nextInt(Gdx.graphics.getWidth() * 4) + Gdx.graphics.getWidth();
+
+            activeGameObjects.add(new Outpost(this, assetManager.get("outpost1.png", Texture.class),
+              new Vector2((float)randomX, Gdx.graphics.getHeight() / 8),
+              new Vector2(Gdx.graphics.getWidth() / 20.0f, Gdx.graphics.getWidth() / 20.0f),
+              new Vector2(256.0f, 128.0f),
+              200.0, 0.0, false, false, true));
+
+            randomX = rand.nextInt(Gdx.graphics.getWidth() * 4) + Gdx.graphics.getWidth();
+
+            activeGameObjects.add(new Outpost(this, assetManager.get("outpost2.png", Texture.class),
+              new Vector2((float)randomX, Gdx.graphics.getHeight() / 8),
+              new Vector2(Gdx.graphics.getWidth() / 20.0f, Gdx.graphics.getWidth() / 20.0f),
+              new Vector2(256.0f, 128.0f),
+              200.0, 0.0, false, false, false));
         }
     }
 
