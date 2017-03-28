@@ -86,12 +86,12 @@ public class World
         Random rand = new Random();
         double randomWidth, randomHeight, randomX, randomY, randomSpeed;
 
-        for(int i = 0; i < 30; ++i)
+        for(int i = 0; i < 20; ++i)
         {
             randomWidth = rand.nextInt(120) + 100;
             randomHeight = rand.nextInt(60) + 50;
             randomX = rand.nextInt(Gdx.graphics.getWidth());
-            randomY = rand.nextInt(Gdx.graphics.getHeight()) + Gdx.graphics.getHeight() / 4.0f;
+            randomY = rand.nextInt(Gdx.graphics.getHeight()) + Gdx.graphics.getHeight() / 3.0f;
             randomSpeed = rand.nextInt(200) + 100;
 
             activeGameObjects.add(new Cloud(this, assetManager.get("cloud.png", Texture.class),
