@@ -134,15 +134,15 @@ public class World
           new Vector2(Gdx.graphics.getWidth() / 10.0f, Gdx.graphics.getWidth() / 20.0f),
           new Vector2(512.0f, 256.0f),
           200.0, 0.0, false, false,
-          Input.Keys.W, Input.Keys.S, Input.Keys.A, Input.Keys.D, Input.Keys.E));
+          Input.Keys.W, Input.Keys.S, Input.Keys.A, Input.Keys.D, Input.Keys.E, Input.Keys.F));
 
         activeGameObjects.add(new Plane(this, assetManager.get("plane2.png", Texture.class),
           new Vector2(Gdx.graphics.getWidth() / 3.0f, Gdx.graphics.getHeight() / 2.0f),
           /*new Vector2(Gdx.graphics.getWidth() - (Gdx.graphics.getWidth() / 3.0f), Gdx.graphics.getHeight() / 2.0f),*/
           new Vector2(Gdx.graphics.getWidth() / 10.0f, Gdx.graphics.getWidth() / 20.0f),
           new Vector2(512.0f, 256.0f),
-          200.0, 180.0, true, false,
-          Input.Keys.UP, Input.Keys.DOWN, Input.Keys.LEFT, Input.Keys.RIGHT, Input.Keys.SHIFT_RIGHT));
+          200.0, 180.0, false, true,
+          Input.Keys.UP, Input.Keys.DOWN, Input.Keys.LEFT, Input.Keys.RIGHT, Input.Keys.SHIFT_RIGHT, Input.Keys.ENTER));
     }
 
     public void add(GameObject gameObject)
@@ -177,6 +177,15 @@ public class World
 
         // This is okay so long as there are no Bullets in inactiveGameObjects before Bullets are created here
         collisionHandler.add(bullet);
+    }
+
+    public void addBomb(Vector2 position, Vector2 dimension, double speed, double angle, boolean isFlippedX, boolean isFlippedY)
+    {
+        Bomb bomb = new Bomb(this, assetManager.get("bomb.png", Texture.class),
+          position, dimension, new Vector2(128, 64), speed, angle, isFlippedX, isFlippedY);
+
+        activeGameObjectsToAdd.add(bomb);
+        collisionHandler.add(bomb);
     }
 
     public void remove(GameObject gameObject)

@@ -13,11 +13,11 @@ import java.awt.*;
  */
 public class Plane extends CollidableObject implements InputHandler
 {
-    private int up, down, left, right, fire, coolDownTime, timeToCool;
+    private int up, down, left, right, fire, dropBomb, bulletCoolDownTime, bulletTimeToCool, bombCoolDownTime, bombTimeToCool;
     private double maxSpeed;
 
     public Plane(World world, Texture image, Vector2 position, Vector2 dimension, Vector2 sourceDimension, double speed,
-                 double angle, boolean isFlippedX, boolean isFlippedY, int up, int down, int left, int right, int fire)
+                 double angle, boolean isFlippedX, boolean isFlippedY, int up, int down, int left, int right, int fire, int dropBomb)
     {
         super(world, image, position, dimension, sourceDimension, speed, angle, isFlippedX, isFlippedY);
         this.up = up;
@@ -25,14 +25,19 @@ public class Plane extends CollidableObject implements InputHandler
         this.left = left;
         this.right = right;
         this.fire = fire;
-        coolDownTime = 60 / 4;
-        timeToCool = 0;
+        this.dropBomb = dropBomb;
+        bulletCoolDownTime = 60 / 4;
+        bombCoolDownTime = 60 / 2;
+        bulletTimeToCool = 0;
+        bombTimeToCool = 0;
         maxSpeed = this.speed;
     }
 
     @Override
     public void update()
     {
+        //speed = 0.0;
+
         handleInput();
 
         direction.x = (float)Math.cos(Math.toRadians(angle));
@@ -40,7 +45,8 @@ public class Plane extends CollidableObject implements InputHandler
 
         updateHitBox();
 
-        if(timeToCool > 0) timeToCool--;
+        if(bulletTimeToCool > 0) bulletTimeToCool--;
+        if(bombTimeToCool > 0) bombTimeToCool--;
     }
 
     @Override
@@ -48,32 +54,42 @@ public class Plane extends CollidableObject implements InputHandler
     {
         if(Gdx.input.isKeyPressed(up))
         {
+            //speed = maxSpeed;
             position.y += speed * Gdx.graphics.getDeltaTime();
         }
 
         if(Gdx.input.isKeyPressed(down))
         {
+            //speed = maxSpeed;
             position.y -= speed * Gdx.graphics.getDeltaTime();
         }
 
         if(Gdx.input.isKeyPressed(left))
         {
+            //speed = maxSpeed;
             position.x -= speed * Gdx.graphics.getDeltaTime();
             angle = 180.0;
-            if(!isFlippedX) isFlippedX = true;
+            if(!isFlippedY) isFlippedY = true;
         }
 
         if(Gdx.input.isKeyPressed(right))
         {
+            //speed = maxSpeed;
             position.x += speed * Gdx.graphics.getDeltaTime();
             angle = 0.0;
-            if(isFlippedX) isFlippedX = false;
+            if(isFlippedY) isFlippedY = false;
         }
 
-        if(Gdx.input.isKeyPressed(fire) && timeToCool == 0)
+        if(Gdx.input.isKeyPressed(fire) && bulletTimeToCool == 0)
         {
-            timeToCool = coolDownTime;
+            bulletTimeToCool = bulletCoolDownTime;
             fireBullet();
+        }
+
+        if(Gdx.input.isKeyPressed(dropBomb) && bombTimeToCool == 0)
+        {
+            bombTimeToCool = bombCoolDownTime;
+            dropBomb();
         }
     }
 
@@ -82,7 +98,7 @@ public class Plane extends CollidableObject implements InputHandler
         Vector2 pos = position.cpy();
         Vector2 dim = new Vector2(20.0f, 10.0f);
 
-        if(isFlippedX)
+        if(isFlippedY)
         {
             pos.add(((-dimension.x / 2) - dim.x / 2) - 1, 0);
         }
@@ -92,6 +108,16 @@ public class Plane extends CollidableObject implements InputHandler
         }
 
         world.addBullet(pos, dim, maxSpeed * 3, angle, isFlippedX, isFlippedY);
+    }
+
+    private void dropBomb()
+    {
+        Vector2 pos = position.cpy();
+        Vector2 dim = new Vector2(50.0f, 20.0f);
+
+        pos.y -= (dimension.y / 2 + dim.y) - 1;
+
+        world.addBomb(pos, dim, maxSpeed * 1.1, angle, isFlippedX, isFlippedY);
     }
 
     @Override

@@ -30,6 +30,8 @@ public class Outpost extends CollidableObject
         {
             position = startingPosition;
         }
+
+        updateHitBox();
     }
 
     @Override
