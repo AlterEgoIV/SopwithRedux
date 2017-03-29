@@ -27,7 +27,7 @@ public class Plane extends CollidableObject implements InputHandler
         this.fire = fire;
         this.dropBomb = dropBomb;
         bulletCoolDownTime = 60 / 4;
-        bombCoolDownTime = 60 / 2;
+        bombCoolDownTime = 60;
         bulletTimeToCool = 0;
         bombTimeToCool = 0;
         maxSpeed = this.speed;
@@ -96,7 +96,7 @@ public class Plane extends CollidableObject implements InputHandler
     private void fireBullet()
     {
         Vector2 pos = position.cpy();
-        Vector2 dim = new Vector2(20.0f, 10.0f);
+        Vector2 dim = new Vector2(dimension.x / 7, dimension.y / 7);
 
         if(isFlippedY)
         {
@@ -113,7 +113,7 @@ public class Plane extends CollidableObject implements InputHandler
     private void dropBomb()
     {
         Vector2 pos = position.cpy();
-        Vector2 dim = new Vector2(50.0f, 20.0f);
+        Vector2 dim = new Vector2(dimension.x / 3, dimension.y / 3);
 
         pos.y -= (dimension.y / 2 + dim.y) - 1;
 
