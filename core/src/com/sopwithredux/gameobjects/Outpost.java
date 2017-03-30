@@ -18,7 +18,7 @@ public class Outpost extends CollidableObject
     {
         super(world, image, position, dimension, sourceDimension, speed, angle, isFlippedX, isFlippedY);
         this.player1Outpost = player1Outpost;
-        startingPosition = position;
+        startingPosition = position.cpy();
     }
 
     @Override
@@ -28,7 +28,7 @@ public class Outpost extends CollidableObject
 
         if(position.x < -dimension.x)
         {
-            position = startingPosition;
+            position.x = startingPosition.x;
         }
 
         updateHitBox();
