@@ -1,9 +1,11 @@
-package com.sopwithredux.gameobjects;
+package com.sopwithredux.gameobjects.projectiles;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.sopwithredux.World;
+import com.sopwithredux.gameobjects.CollidableObject;
+import com.sopwithredux.gameobjects.Plane;
 
 /**
  * Created by Carl on 29/03/2017.

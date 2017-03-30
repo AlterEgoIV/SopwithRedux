@@ -56,7 +56,7 @@ public class Outpost extends CollidableObject
     }
 
     @Override
-    public void resolveBulletCollision(Bullet bullet)
+    public void resolveBulletCollision(com.sopwithredux.gameobjects.projectiles.Bullet bullet)
     {
 
     }

@@ -86,17 +86,17 @@ public class CollisionHandler
                 collidedObject2.updateHitBox();
             }
 
-            if(collidedObject2 instanceof Bullet)
+            if(collidedObject2 instanceof com.sopwithredux.gameobjects.projectiles.Bullet)
             {
                 world.remove(collidedObject2);
                 //collidedObject1.resolveBulletCollision((Bullet)collidedObject2);
             }
-            else if(collidedObject2 instanceof Bomb)
+            else if(collidedObject2 instanceof com.sopwithredux.gameobjects.projectiles.Bomb)
             {
                 world.remove(collidedObject2);
             }
         }
-        else if(collidedObject1 instanceof Bomb)
+        else if(collidedObject1 instanceof com.sopwithredux.gameobjects.projectiles.Bomb)
         {
             if(collidedObject2 instanceof Outpost)
             {
@@ -106,7 +106,7 @@ public class CollisionHandler
         }
         else if(collidedObject1 instanceof Outpost)
         {
-            if(collidedObject2 instanceof Bomb)
+            if(collidedObject2 instanceof com.sopwithredux.gameobjects.projectiles.Bomb)
             {
                 world.remove(collidedObject1);
                 world.remove(collidedObject2);

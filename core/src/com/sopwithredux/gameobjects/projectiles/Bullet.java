@@ -1,16 +1,16 @@
-package com.sopwithredux.gameobjects;
+package com.sopwithredux.gameobjects.projectiles;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.sopwithredux.World;
-
-import java.awt.*;
+import com.sopwithredux.gameobjects.CollidableObject;
+import com.sopwithredux.gameobjects.Plane;
 
 /**
  * Created by Carl on 08/03/2017.
  */
-public class Bullet extends Projectile
+public class Bullet extends com.sopwithredux.gameobjects.projectiles.Projectile
 {
     public Bullet(World world, Texture image, Vector2 position, Vector2 dimension, Vector2 sourceDimension,
                   double speed, double angle, boolean isFlippedX, boolean isFlippedY)

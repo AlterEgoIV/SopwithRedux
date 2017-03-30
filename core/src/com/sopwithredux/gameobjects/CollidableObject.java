@@ -70,5 +70,5 @@ public abstract class CollidableObject extends GameObject
 
     public abstract void resolveCollision(CollidableObject collidableObject);
     public abstract void resolvePlaneCollision(Plane plane);
-    public abstract void resolveBulletCollision(Bullet bullet);
+    public abstract void resolveBulletCollision(com.sopwithredux.gameobjects.projectiles.Bullet bullet);
 }

@@ -7,6 +7,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.sopwithredux.gameobjects.*;
+import com.sopwithredux.gameobjects.powerups.BombPowerUp;
+import com.sopwithredux.gameobjects.powerups.FuelPowerUp;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +23,8 @@ public class World
     private List<GameObject> activeGameObjects, inactiveGameObjects, activeGameObjectsToAdd, activeGameObjectsToRemove;
     private CollisionHandler collisionHandler;
     private Texture background;
+    private Random rand;
+    int spawnTime, timeLeftToSpawn;
 
     public World(AssetManager assetManager)
     {
@@ -31,6 +35,9 @@ public class World
         activeGameObjectsToRemove = new ArrayList<GameObject>();
         collisionHandler = new CollisionHandler(this);
         background = assetManager.get("background.png", Texture.class);
+        rand = new Random();
+        spawnTime = 300;
+        timeLeftToSpawn = 300;
 
         createGameObjects();
 
@@ -58,6 +65,10 @@ public class World
             activeGameObjects.addAll(activeGameObjectsToAdd);
             activeGameObjectsToAdd.clear();
         }
+
+        spawnPowerUps();
+
+        if(timeLeftToSpawn > 0) timeLeftToSpawn--;
     }
 
     public void handleCollisions()
@@ -77,6 +88,8 @@ public class World
     private void createGameObjects()
     {
         createClouds();
+        //createPowerUps();
+        //spawnPowerUps();
         createOutposts();
         createPlanes();
     }
@@ -99,6 +112,29 @@ public class World
               new Vector2((float)randomWidth, (float)randomHeight),
               new Vector2(256.0f, 128.0f),
               randomSpeed, 0.0, false, false));
+        }
+    }
+
+    private void createPowerUps()
+    {
+        Random rand = new Random();
+        double randomX;
+
+        for(int i = 0; i < 5; ++i)
+        {
+            randomX = rand.nextInt(Gdx.graphics.getWidth());
+
+            activeGameObjects.add(new BombPowerUp(this, assetManager.get("bombpowerup.png", Texture.class),
+              new Vector2((float)randomX, Gdx.graphics.getHeight() / 8),
+              new Vector2(Gdx.graphics.getWidth() / 20.0f, Gdx.graphics.getWidth() / 20.0f),
+              new Vector2(256.0f, 128.0f),
+              50.0, 0.0, false, false));
+
+            activeGameObjects.add(new FuelPowerUp(this, assetManager.get("fuelpowerup.png", Texture.class),
+              new Vector2((float)randomX, Gdx.graphics.getHeight() / 8),
+              new Vector2(Gdx.graphics.getWidth() / 20.0f, Gdx.graphics.getWidth() / 20.0f),
+              new Vector2(256.0f, 128.0f),
+              50.0, 0.0, false, false));
         }
     }
 
@@ -145,6 +181,36 @@ public class World
           Input.Keys.UP, Input.Keys.DOWN, Input.Keys.LEFT, Input.Keys.RIGHT, Input.Keys.SHIFT_RIGHT, Input.Keys.ENTER));
     }
 
+    private void spawnPowerUps()
+    {
+        int randomNumber = rand.nextInt(2);
+
+        if(randomNumber == 1 && timeLeftToSpawn == 0)
+        {
+            timeLeftToSpawn = spawnTime;
+
+            randomNumber = rand.nextInt(2);
+            double randomX = rand.nextInt(Gdx.graphics.getWidth());
+
+            if(randomNumber == 1)
+            {
+                activeGameObjects.add(new BombPowerUp(this, assetManager.get("bombpowerup.png", Texture.class),
+                  new Vector2((float)randomX, Gdx.graphics.getHeight() / 8),
+                  new Vector2(Gdx.graphics.getWidth() / 20.0f, Gdx.graphics.getWidth() / 20.0f),
+                  new Vector2(256.0f, 128.0f),
+                  50.0, 0.0, false, false));
+            }
+            else
+            {
+                activeGameObjects.add(new FuelPowerUp(this, assetManager.get("fuelpowerup.png", Texture.class),
+                  new Vector2((float)randomX, Gdx.graphics.getHeight() / 8),
+                  new Vector2(Gdx.graphics.getWidth() / 20.0f, Gdx.graphics.getWidth() / 20.0f),
+                  new Vector2(256.0f, 128.0f),
+                  50.0, 0.0, false, false));
+            }
+        }
+    }
+
     public void add(GameObject gameObject)
     {
         if(activeGameObjects.contains(gameObject))
@@ -170,7 +236,7 @@ public class World
 //            }
 //        }
 
-        Bullet bullet = new Bullet(this, assetManager.get("bullet.png", Texture.class),
+        com.sopwithredux.gameobjects.projectiles.Bullet bullet = new com.sopwithredux.gameobjects.projectiles.Bullet(this, assetManager.get("bullet.png", Texture.class),
           position, dimension, new Vector2(32, 16), speed, angle, isFlippedX, isFlippedY);
 
         activeGameObjectsToAdd.add(bullet);
@@ -181,7 +247,7 @@ public class World
 
     public void addBomb(Vector2 position, Vector2 dimension, double speed, double angle, boolean isFlippedX, boolean isFlippedY)
     {
-        Bomb bomb = new Bomb(this, assetManager.get("bomb.png", Texture.class),
+        com.sopwithredux.gameobjects.projectiles.Bomb bomb = new com.sopwithredux.gameobjects.projectiles.Bomb(this, assetManager.get("bomb.png", Texture.class),
           position, dimension, new Vector2(128, 64), speed, angle, isFlippedX, isFlippedY);
 
         activeGameObjectsToAdd.add(bomb);

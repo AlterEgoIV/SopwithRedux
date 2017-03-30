@@ -162,7 +162,7 @@ public class Plane extends CollidableObject implements InputHandler
     }
 
     @Override
-    public void resolveBulletCollision(Bullet bullet)
+    public void resolveBulletCollision(com.sopwithredux.gameobjects.projectiles.Bullet bullet)
     {
         world.remove(bullet);
     }
