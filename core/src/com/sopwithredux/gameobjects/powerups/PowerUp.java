@@ -12,16 +12,34 @@ import com.sopwithredux.gameobjects.Plane;
  */
 public abstract class PowerUp extends CollidableObject
 {
+    private boolean rotateRight;
+
     protected PowerUp(World world, Texture image, Vector2 position, Vector2 dimension, Vector2 sourceDimension,
                       double speed, double angle, boolean isFlippedX, boolean isFlippedY)
     {
         super(world, image, position, dimension, sourceDimension, speed, angle, isFlippedX, isFlippedY);
+        rotationSpeed = .5;
+        rotateRight = true;
     }
 
     @Override
     public void update()
     {
         position.y -= speed * Gdx.graphics.getDeltaTime();
+
+        if(rotateRight)
+        {
+            angle += rotationSpeed;
+
+            if(angle >= 15.0) rotateRight = false;
+        }
+        else
+        {
+            angle -= rotationSpeed;
+
+            if(angle <= -15.0) rotateRight = true;
+        }
+
 
         if(position.y <= Gdx.graphics.getHeight() / 5)
         {

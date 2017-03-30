@@ -16,6 +16,7 @@ public abstract class CollidableObject extends GameObject
 {
     public Rectangle hitBox;
     private Texture hitBoxImage;
+    protected double rotationSpeed;
 
     protected CollidableObject(World world, Texture image, Vector2 position, Vector2 dimension, Vector2 sourceDimension,
                                double speed, double angle, boolean isFlippedX, boolean isFlippedY)
@@ -29,6 +30,7 @@ public abstract class CollidableObject extends GameObject
         pixmap.drawRectangle(0, 0, (int)dimension.x, (int)dimension.y);
 
         hitBoxImage = new Texture(pixmap);
+        rotationSpeed = 0.0;
     }
 
     public void updateHitBox()

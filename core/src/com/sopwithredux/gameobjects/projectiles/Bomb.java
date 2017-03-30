@@ -12,7 +12,7 @@ import com.sopwithredux.gameobjects.Plane;
  */
 public class Bomb extends CollidableObject
 {
-    private double rotationSpeed, targetAngle;
+    private double targetAngle;
 
     public Bomb(World world, Texture image, Vector2 position, Vector2 dimension, Vector2 sourceDimension, double speed, double angle, boolean isFlippedX, boolean isFlippedY)
     {
