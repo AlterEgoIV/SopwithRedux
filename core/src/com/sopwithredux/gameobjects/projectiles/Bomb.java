@@ -44,6 +44,11 @@ public class Bomb extends CollidableObject
             angle -= rotationSpeed;
         }
 
+        if(position.y <= Gdx.graphics.getHeight() / 6)
+        {
+            world.remove(this);
+        }
+
         updateHitBox();
     }
 

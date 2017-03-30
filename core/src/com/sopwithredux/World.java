@@ -9,6 +9,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.sopwithredux.gameobjects.*;
 import com.sopwithredux.gameobjects.powerups.BombPowerUp;
 import com.sopwithredux.gameobjects.powerups.FuelPowerUp;
+import com.sopwithredux.gameobjects.powerups.PowerUp;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -88,15 +89,12 @@ public class World
     private void createGameObjects()
     {
         createClouds();
-        //createPowerUps();
-        //spawnPowerUps();
         createOutposts();
         createPlanes();
     }
 
     private void createClouds()
     {
-        Random rand = new Random();
         double randomWidth, randomHeight, randomX, randomY, randomSpeed;
 
         for(int i = 0; i < 20; ++i)
@@ -115,32 +113,8 @@ public class World
         }
     }
 
-    private void createPowerUps()
-    {
-        Random rand = new Random();
-        double randomX;
-
-        for(int i = 0; i < 5; ++i)
-        {
-            randomX = rand.nextInt(Gdx.graphics.getWidth());
-
-            activeGameObjects.add(new BombPowerUp(this, assetManager.get("bombpowerup.png", Texture.class),
-              new Vector2((float)randomX, Gdx.graphics.getHeight() / 8),
-              new Vector2(Gdx.graphics.getWidth() / 20.0f, Gdx.graphics.getWidth() / 20.0f),
-              new Vector2(256.0f, 128.0f),
-              50.0, 0.0, false, false));
-
-            activeGameObjects.add(new FuelPowerUp(this, assetManager.get("fuelpowerup.png", Texture.class),
-              new Vector2((float)randomX, Gdx.graphics.getHeight() / 8),
-              new Vector2(Gdx.graphics.getWidth() / 20.0f, Gdx.graphics.getWidth() / 20.0f),
-              new Vector2(256.0f, 128.0f),
-              50.0, 0.0, false, false));
-        }
-    }
-
     private void createOutposts()
     {
-        Random rand = new Random();
         double randomX;
 
         for(int i = 0; i < 5; ++i)
@@ -183,6 +157,8 @@ public class World
 
     private void spawnPowerUps()
     {
+        PowerUp powerUp;
+
         if(timeLeftToSpawn == 0)
         {
             timeLeftToSpawn = spawnTime;
@@ -192,20 +168,23 @@ public class World
 
             if(randomNumber == 1)
             {
-                activeGameObjects.add(new BombPowerUp(this, assetManager.get("bombpowerup.png", Texture.class),
+                powerUp = new BombPowerUp(this, assetManager.get("bombpowerup.png", Texture.class),
                   new Vector2((float)randomX, Gdx.graphics.getHeight() + (Gdx.graphics.getWidth() / 20.0f) / 2),
                   new Vector2(Gdx.graphics.getWidth() / 20.0f, Gdx.graphics.getWidth() / 20.0f),
                   new Vector2(256.0f, 128.0f),
-                  50.0, 0.0, false, false));
+                  50.0, 0.0, false, false);
             }
             else
             {
-                activeGameObjects.add(new FuelPowerUp(this, assetManager.get("fuelpowerup.png", Texture.class),
+                powerUp = new FuelPowerUp(this, assetManager.get("fuelpowerup.png", Texture.class),
                   new Vector2((float)randomX, Gdx.graphics.getHeight() + (Gdx.graphics.getWidth() / 20.0f) / 2),
                   new Vector2(Gdx.graphics.getWidth() / 20.0f, Gdx.graphics.getWidth() / 20.0f),
                   new Vector2(256.0f, 128.0f),
-                  50.0, 0.0, false, false));
+                  50.0, 0.0, false, false);
             }
+
+            activeGameObjects.add(powerUp);
+            collisionHandler.add(powerUp);
         }
     }
 
@@ -222,18 +201,6 @@ public class World
 
     public void addBullet(Vector2 position, Vector2 dimension, double speed, double angle, boolean isFlippedX, boolean isFlippedY)
     {
-//        for(GameObject gameObject : inactiveGameObjects)
-//        {
-//            if(gameObject instanceof Bullet)
-//            {
-//                ((Bullet)gameObject).initialise(position, dimension, speed, angle, isFlippedX, isFlippedY);
-//                activeGameObjectsToAdd.add(gameObject);
-//                inactiveGameObjects.remove(gameObject);
-//                collisionHandler.add((CollidableObject)gameObject);
-//                return;
-//            }
-//        }
-
         com.sopwithredux.gameobjects.projectiles.Bullet bullet = new com.sopwithredux.gameobjects.projectiles.Bullet(this, assetManager.get("bullet.png", Texture.class),
           position, dimension, new Vector2(32, 16), speed, angle, isFlippedX, isFlippedY);
 

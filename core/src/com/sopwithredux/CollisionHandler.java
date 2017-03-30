@@ -1,6 +1,9 @@
 package com.sopwithredux;
 
 import com.sopwithredux.gameobjects.*;
+import com.sopwithredux.gameobjects.powerups.PowerUp;
+import com.sopwithredux.gameobjects.projectiles.Bomb;
+import com.sopwithredux.gameobjects.projectiles.Bullet;
 import com.sopwithredux.utilities.Pair;
 
 import java.awt.Rectangle;
@@ -85,18 +88,21 @@ public class CollisionHandler
                 collidedObject1.updateHitBox();
                 collidedObject2.updateHitBox();
             }
-
-            if(collidedObject2 instanceof com.sopwithredux.gameobjects.projectiles.Bullet)
+            else if(collidedObject2 instanceof Bullet)
             {
                 world.remove(collidedObject2);
                 //collidedObject1.resolveBulletCollision((Bullet)collidedObject2);
             }
-            else if(collidedObject2 instanceof com.sopwithredux.gameobjects.projectiles.Bomb)
+            else if(collidedObject2 instanceof Bomb)
+            {
+                world.remove(collidedObject2);
+            }
+            else if(collidedObject2 instanceof PowerUp)
             {
                 world.remove(collidedObject2);
             }
         }
-        else if(collidedObject1 instanceof com.sopwithredux.gameobjects.projectiles.Bomb)
+        else if(collidedObject1 instanceof Bomb)
         {
             if(collidedObject2 instanceof Outpost)
             {
@@ -106,10 +112,17 @@ public class CollisionHandler
         }
         else if(collidedObject1 instanceof Outpost)
         {
-            if(collidedObject2 instanceof com.sopwithredux.gameobjects.projectiles.Bomb)
+            if(collidedObject2 instanceof Bomb)
             {
                 world.remove(collidedObject1);
                 world.remove(collidedObject2);
+            }
+        }
+        else if(collidedObject1 instanceof PowerUp)
+        {
+            if(collidedObject2 instanceof Plane)
+            {
+                world.remove(collidedObject1);
             }
         }
 
