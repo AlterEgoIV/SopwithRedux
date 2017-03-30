@@ -1,8 +1,6 @@
 package com.sopwithredux;
 
-import com.sopwithredux.gameobjects.Bullet;
-import com.sopwithredux.gameobjects.CollidableObject;
-import com.sopwithredux.gameobjects.Plane;
+import com.sopwithredux.gameobjects.*;
 import com.sopwithredux.utilities.Pair;
 
 import java.awt.Rectangle;
@@ -14,11 +12,13 @@ import java.util.List;
  */
 public class CollisionHandler
 {
+    private World world;
     private List<CollidableObject> collidableObjects;
     private List<Pair> collidedObjects;
 
-    public CollisionHandler()
+    public CollisionHandler(World world)
     {
+        this.world = world;
         collidableObjects = new ArrayList<CollidableObject>();
         collidedObjects = new ArrayList<Pair>();
     }
@@ -88,7 +88,28 @@ public class CollisionHandler
 
             if(collidedObject2 instanceof Bullet)
             {
-                collidedObject1.resolveBulletCollision((Bullet)collidedObject2);
+                world.remove(collidedObject2);
+                //collidedObject1.resolveBulletCollision((Bullet)collidedObject2);
+            }
+            else if(collidedObject2 instanceof Bomb)
+            {
+                world.remove(collidedObject2);
+            }
+        }
+        else if(collidedObject1 instanceof Bomb)
+        {
+            if(collidedObject2 instanceof Outpost)
+            {
+                world.remove(collidedObject1);
+                world.remove(collidedObject2);
+            }
+        }
+        else if(collidedObject1 instanceof Outpost)
+        {
+            if(collidedObject2 instanceof Bomb)
+            {
+                world.remove(collidedObject1);
+                world.remove(collidedObject2);
             }
         }
 

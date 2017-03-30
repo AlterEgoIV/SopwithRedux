@@ -29,7 +29,7 @@ public class World
         inactiveGameObjects = new ArrayList<GameObject>();
         activeGameObjectsToAdd = new ArrayList<GameObject>();
         activeGameObjectsToRemove = new ArrayList<GameObject>();
-        collisionHandler = new CollisionHandler();
+        collisionHandler = new CollisionHandler(this);
         background = assetManager.get("background.png", Texture.class);
 
         createGameObjects();
