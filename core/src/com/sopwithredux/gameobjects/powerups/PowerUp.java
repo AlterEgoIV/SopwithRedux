@@ -7,20 +7,15 @@ import com.sopwithredux.World;
 import com.sopwithredux.gameobjects.CollidableObject;
 import com.sopwithredux.gameobjects.Plane;
 
-import java.util.Random;
-
 /**
  * Created by Carl on 30/03/2017.
  */
 public abstract class PowerUp extends CollidableObject
 {
-    private Random rand;
-
     protected PowerUp(World world, Texture image, Vector2 position, Vector2 dimension, Vector2 sourceDimension,
                       double speed, double angle, boolean isFlippedX, boolean isFlippedY)
     {
         super(world, image, position, dimension, sourceDimension, speed, angle, isFlippedX, isFlippedY);
-        rand = new Random();
     }
 
     @Override
@@ -30,9 +25,7 @@ public abstract class PowerUp extends CollidableObject
 
         if(position.y <= Gdx.graphics.getHeight() / 5)
         {
-            double randomX = rand.nextInt(Gdx.graphics.getWidth());
-            position.x = (float)randomX;
-            position.y = Gdx.graphics.getHeight() + dimension.y;
+            world.remove(this);
         }
 
         updateHitBox();
