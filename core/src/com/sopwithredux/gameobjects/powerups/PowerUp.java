@@ -13,13 +13,16 @@ import com.sopwithredux.gameobjects.Plane;
 public abstract class PowerUp extends CollidableObject
 {
     private boolean rotateRight;
+    private double amplitude, rotationValue;
 
     protected PowerUp(World world, Texture image, Vector2 position, Vector2 dimension, Vector2 sourceDimension,
                       double speed, double angle, boolean isFlippedX, boolean isFlippedY)
     {
         super(world, image, position, dimension, sourceDimension, speed, angle, isFlippedX, isFlippedY);
-        rotationSpeed = .5;
+        rotationSpeed = .05;
         rotateRight = true;
+        amplitude = 15;
+        rotationValue = angle;
     }
 
     @Override
@@ -29,17 +32,18 @@ public abstract class PowerUp extends CollidableObject
 
         if(rotateRight)
         {
-            angle += rotationSpeed;
+            rotationValue += rotationSpeed;
 
             if(angle >= 15.0) rotateRight = false;
         }
         else
         {
-            angle -= rotationSpeed;
+            rotationValue -= rotationSpeed;
 
             if(angle <= -15.0) rotateRight = true;
         }
 
+        angle = Math.cos(rotationValue) * amplitude;
 
         if(position.y <= Gdx.graphics.getHeight() / 5)
         {
