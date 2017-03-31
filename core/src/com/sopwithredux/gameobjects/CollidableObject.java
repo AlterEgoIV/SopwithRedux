@@ -45,7 +45,7 @@ public abstract class CollidableObject extends GameObject
           position.x - dimension.x / 2, position.y - dimension.y / 2,
           dimension.x / 2, dimension.y / 2, // Origin is center point for rotation
           dimension.x, dimension.y,
-          1f, 1f,
+          (float)scaleX, (float)scaleY,
           (float)angle,
           0, 0, (int)sourceDimension.x, (int)sourceDimension.y,
           isFlippedX, isFlippedY);

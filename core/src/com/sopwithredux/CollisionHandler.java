@@ -46,7 +46,7 @@ public class CollisionHandler
             {
                 if(collidableObjects.get(i).collidesWith(collidableObjects.get(j)))
                 {
-                    System.out.println("Collision!");
+                    //System.out.println("Collision!");
 
                     collidedObjects.add(new Pair(collidableObjects.get(i), collidableObjects.get(j)));
                 }

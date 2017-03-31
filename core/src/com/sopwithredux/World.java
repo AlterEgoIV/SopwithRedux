@@ -3,6 +3,7 @@ package com.sopwithredux;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
@@ -10,6 +11,9 @@ import com.sopwithredux.gameobjects.*;
 import com.sopwithredux.gameobjects.powerups.BombPowerUp;
 import com.sopwithredux.gameobjects.powerups.FuelPowerUp;
 import com.sopwithredux.gameobjects.powerups.PowerUp;
+import com.sopwithredux.gameobjects.uiobjects.Icon;
+import com.sopwithredux.gameobjects.uiobjects.Text;
+import com.sopwithredux.gameobjects.uiobjects.UIObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,8 +26,9 @@ public class World
 {
     private AssetManager assetManager;
     private List<GameObject> activeGameObjects, inactiveGameObjects, activeGameObjectsToAdd, activeGameObjectsToRemove;
+    private List<UIObject> uiObjects;
     private CollisionHandler collisionHandler;
-    private Texture background;
+    private Texture background, heart, outpost1, outpost2, bombPowerUp, fuelPowerUp;
     private Random rand;
     int spawnTime, timeLeftToSpawn;
 
@@ -34,13 +39,20 @@ public class World
         inactiveGameObjects = new ArrayList<GameObject>();
         activeGameObjectsToAdd = new ArrayList<GameObject>();
         activeGameObjectsToRemove = new ArrayList<GameObject>();
+        uiObjects = new ArrayList<UIObject>();
         collisionHandler = new CollisionHandler(this);
-        background = assetManager.get("background.png", Texture.class);
+        background = assetManager.get("background.png");
+        heart = assetManager.get("heart.png");
+        outpost1 = assetManager.get("outpost1.png");
+        outpost2 = assetManager.get("outpost2.png");
+        bombPowerUp = assetManager.get("bombpowerup.png");
+        fuelPowerUp = assetManager.get("fuelpowerup.png");
         rand = new Random();
         spawnTime = 300;
         timeLeftToSpawn = 0;
 
         createGameObjects();
+        createUI();
 
         for(GameObject gameObject : activeGameObjects)
         {
@@ -83,6 +95,11 @@ public class World
         for(GameObject gameObject : activeGameObjects)
         {
             gameObject.render(batch);
+        }
+
+        for(UIObject uiObject : uiObjects)
+        {
+            uiObject.render(batch);
         }
     }
 
@@ -153,6 +170,101 @@ public class World
           new Vector2(512.0f, 256.0f),
           200.0, 180.0, false, true,
           Input.Keys.UP, Input.Keys.DOWN, Input.Keys.LEFT, Input.Keys.RIGHT, Input.Keys.SHIFT_RIGHT, Input.Keys.ENTER));
+    }
+
+    private void createUI()
+    {
+        //Pixmap pixmap = new Pixmap(Gdx.graphics.getWidth() / 30, 1, Pixmap.Format.RGBA8888);
+        String[] iconNames = {"heart.png", "outpost1.png", "fuelpowerup.png", "bombpowerup.png"};
+        float width = Gdx.graphics.getWidth() / 30.0f, height = Gdx.graphics.getWidth() / 30.0f;
+        float sourceWidth = 16.0f, sourceHeight = 16.0f;
+        float x = Gdx.graphics.getWidth() / 40.0f, y = Gdx.graphics.getHeight() - (Gdx.graphics.getHeight() / 16);
+        float xSpacing = width * 1.5f, ySpacing = height / 1.8f;
+
+        uiObjects.add(new Text(this,
+          new Vector2(Gdx.graphics.getWidth() / 40.0f, Gdx.graphics.getHeight() - (Gdx.graphics.getHeight() / 150)),
+          0.0, 0.0, 1f, 1f,
+          false, false, "Player 1"));
+
+        for(int i = 0; i < 4; ++i)
+        {
+            uiObjects.add(new Icon(this, assetManager.get(iconNames[i], Texture.class),
+              new Vector2(x, y),
+              new Vector2(width, height),
+              new Vector2(sourceWidth, sourceHeight),
+              0.0, 0.0, false, false));
+
+            uiObjects.add(new Text(this, new Vector2(x, y - ySpacing), 0.0, 0.0, 1.5, 1.5,
+              false, false, "1"));
+
+            if(i == 0)
+            {
+                sourceWidth = 256.0f;
+                sourceHeight = 128.0f;
+            }
+
+            x += xSpacing;
+        }
+
+        iconNames[1] = "outpost2.png";
+        x = Gdx.graphics.getWidth() - (Gdx.graphics.getWidth() / 40.0f);
+        sourceWidth = 16.0f;
+        sourceHeight = 16.0f;
+
+        uiObjects.add(new Text(this,
+          new Vector2(Gdx.graphics.getWidth() - (Gdx.graphics.getWidth() / 40.0f), Gdx.graphics.getHeight() - (Gdx.graphics.getHeight() / 150)),
+          0.0, 0.0, 1f, 1f,
+          false, false, "Player 2"));
+
+        for(int i = 0; i < 4; ++i)
+        {
+            uiObjects.add(new Icon(this, assetManager.get(iconNames[i], Texture.class),
+              new Vector2(x, y),
+              new Vector2(width, height),
+              new Vector2(sourceWidth, sourceHeight),
+              0.0, 0.0, false, false));
+
+            uiObjects.add(new Text(this, new Vector2(x, y - ySpacing), 0.0, 0.0, 1.5, 1.5,
+              false, false, "1"));
+
+            if(i == 0)
+            {
+                sourceWidth = 256.0f;
+                sourceHeight = 128.0f;
+            }
+
+            x -= xSpacing;
+        }
+
+//        uiObjects.add(new Icon(this, assetManager.get("heart.png", Texture.class),
+//          new Vector2(x, y),
+//          new Vector2(width, height),
+//          new Vector2(16.0f, 16.0f),
+//          0.0, 0.0, false, false));
+//
+//        x += xSpacing;
+//
+//        uiObjects.add(new Icon(this, assetManager.get("outpost1.png", Texture.class),
+//          new Vector2(x, y),
+//          new Vector2(width, height),
+//          new Vector2(256.0f, 128.0f),
+//          0.0, 0.0, false, false));
+//
+//        x += xSpacing;
+//
+//        uiObjects.add(new Icon(this, assetManager.get("fuelpowerup.png", Texture.class),
+//          new Vector2(x, y),
+//          new Vector2(width, height),
+//          new Vector2(256.0f, 128.0f),
+//          0.0, 0.0, false, false));
+//
+//        x += xSpacing;
+//
+//        uiObjects.add(new Icon(this, assetManager.get("bombpowerup.png", Texture.class),
+//          new Vector2(x, y),
+//          new Vector2(width, height),
+//          new Vector2(256.0f, 128.0f),
+//          0.0, 0.0, false, false));
     }
 
     private void spawnPowerUps()
