@@ -10,7 +10,6 @@ import com.sopwithredux.Subject;
 import com.sopwithredux.World;
 import com.sopwithredux.gameobjects.Outpost;
 import com.sopwithredux.gameobjects.Plane;
-import com.sopwithredux.gameobjects.projectiles.Bomb;
 import com.sopwithredux.gameobjects.uiobjects.Icon;
 import com.sopwithredux.gameobjects.uiobjects.Text;
 import com.sopwithredux.gameobjects.uiobjects.UIObject;
@@ -24,21 +23,12 @@ import java.util.List;
 public class WorldUserInterface extends UserInterface
 {
     private List<Text> player1UiTextValues, player2UiTextValues;
-    //private Integer lives, outposts, fuel, bombs;
-    //private int uiValue;
     private Integer[] player1UiValues, player2UiValues;
 
     public WorldUserInterface(World world, AssetManager assetManager)
     {
         player1UiTextValues = new ArrayList<Text>();
         player2UiTextValues = new ArrayList<Text>();
-        //lives = 5;
-        //outposts = 5;
-        //bombs = 5;
-        //fuel = 100;
-        //uiValue = 0;
-
-        //player1UiValues = new Integer[]{lives, outposts, fuel, bombs};
         player1UiValues = new Integer[]{0, 0, 0, 0};
         player2UiValues = new Integer[]{0, 0, 0, 0};
 
@@ -176,16 +166,6 @@ public class WorldUserInterface extends UserInterface
                         player2UiTextValues.get(1).setText(player2UiValues[1]);
                     }
                 }
-//                if(plane.isPlayer1())
-//                {
-//                    --player1UiValues[1];
-//                    player1UiTextValues.get(1).setText(player1UiValues[1]);
-//                }
-//                else
-//                {
-//                    --player2UiValues[1];
-//                    player2UiTextValues.get(1).setText(player2UiValues[1]);
-//                }
 
                 break;
             }
@@ -232,6 +212,24 @@ public class WorldUserInterface extends UserInterface
                 break;
             }
 
+            case FUEL_RESTORED:
+            {
+                Plane plane = (Plane)subject;
+
+                if(plane.isPlayer1())
+                {
+                    player1UiValues[2] = plane.getFuel();
+                    player1UiTextValues.get(2).setText(player1UiValues[2]);
+                }
+                else
+                {
+                    player2UiValues[2] = plane.getFuel();
+                    player2UiTextValues.get(2).setText(player2UiValues[2]);
+                }
+
+                break;
+            }
+
             case MAX_FUEL_RESTORED:
             {
                 Plane plane = (Plane)subject;
@@ -249,12 +247,29 @@ public class WorldUserInterface extends UserInterface
 
                 break;
             }
+
+            case BOMBS_INCREASED:
+            {
+                Plane plane = (Plane)subject;
+
+                if(plane.isPlayer1())
+                {
+                    player1UiValues[3] = plane.getBombs();
+                    player1UiTextValues.get(3).setText(player1UiValues[3]);
+                }
+                else
+                {
+                    player2UiValues[3] = plane.getBombs();
+                    player2UiTextValues.get(3).setText(player2UiValues[3]);
+                }
+
+                break;
+            }
         }
     }
 
     public void setPlayer1UiValues(int lives, int outposts, int fuel, int bombs)
     {
-        //player1UiValues = new Integer[]{lives, outposts, fuel, bombs};
         player1UiValues[0] = lives;
         player1UiValues[1] = outposts;
         player1UiValues[2] = fuel;
@@ -268,7 +283,6 @@ public class WorldUserInterface extends UserInterface
 
     public void setPlayer2UiValues(int lives, int outposts, int fuel, int bombs)
     {
-        //player1UiValues = new Integer[]{lives, outposts, fuel, bombs};
         player2UiValues[0] = lives;
         player2UiValues[1] = outposts;
         player2UiValues[2] = fuel;

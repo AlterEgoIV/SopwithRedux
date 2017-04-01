@@ -5,6 +5,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.sopwithredux.*;
 import com.sopwithredux.Event;
+import com.sopwithredux.gameobjects.powerups.BombPowerUp;
+import com.sopwithredux.gameobjects.powerups.FuelPowerUp;
+import com.sopwithredux.gameobjects.projectiles.Bullet;
 
 import java.awt.*;
 
@@ -15,7 +18,7 @@ public class Plane extends CollidableObject implements InputHandler
 {
     private int up, down, left, right, fire, dropBomb,
                 bulletCoolDownTime, bulletTimeToCool, bombCoolDownTime, bombTimeToCool, fuelDecreaseTime, timeToDecreaseFuel,
-                lives, outposts, bombs, fuel, maxFuel, damageTaken, maxDamage;
+                lives, outposts, bombs, maxBombs, fuel, maxFuel, damageTaken, maxDamage;
     private double maxSpeed;
     private boolean isPlayer1, falling;
 
@@ -39,6 +42,7 @@ public class Plane extends CollidableObject implements InputHandler
         timeToDecreaseFuel = 30;
         lives = 5;
         outposts = 5;
+        maxBombs = 5;
         bombs = 5;
         maxFuel = 100;
         fuel = 100;
@@ -51,8 +55,6 @@ public class Plane extends CollidableObject implements InputHandler
     @Override
     public void update()
     {
-        //speed = 0.0;
-
         if(falling)
         {
             position.y -= speed * Gdx.graphics.getDeltaTime();
@@ -106,19 +108,16 @@ public class Plane extends CollidableObject implements InputHandler
     {
         if(Gdx.input.isKeyPressed(up))
         {
-            //speed = maxSpeed;
             position.y += speed * Gdx.graphics.getDeltaTime();
         }
 
         if(Gdx.input.isKeyPressed(down))
         {
-            //speed = maxSpeed;
             position.y -= speed * Gdx.graphics.getDeltaTime();
         }
 
         if(Gdx.input.isKeyPressed(left))
         {
-            //speed = maxSpeed;
             position.x -= speed * Gdx.graphics.getDeltaTime();
             angle = 180.0;
             if(!isFlippedY) isFlippedY = true;
@@ -126,7 +125,6 @@ public class Plane extends CollidableObject implements InputHandler
 
         if(Gdx.input.isKeyPressed(right))
         {
-            //speed = maxSpeed;
             position.x += speed * Gdx.graphics.getDeltaTime();
             angle = 0.0;
             if(isFlippedY) isFlippedY = false;
@@ -192,6 +190,30 @@ public class Plane extends CollidableObject implements InputHandler
         }
     }
 
+    public void addFuel(FuelPowerUp fuelPowerUp)
+    {
+        if(!(fuel >= maxFuel))
+        {
+            world.remove(fuelPowerUp);
+        }
+
+        fuel += 10;
+        if(fuel > maxFuel) fuel = maxFuel;
+        sendEvent(this, Event.FUEL_RESTORED);
+    }
+
+    public void addBomb(BombPowerUp bombPowerUp)
+    {
+        if(!(bombs >= maxBombs))
+        {
+            world.remove(bombPowerUp);
+        }
+
+        ++bombs;
+        if(bombs > maxBombs) bombs = maxBombs;
+        sendEvent(this, Event.BOMBS_INCREASED);
+    }
+
     @Override
     public void resolveCollision(CollidableObject collidableObject)
     {
@@ -234,7 +256,7 @@ public class Plane extends CollidableObject implements InputHandler
     }
 
     @Override
-    public void resolveBulletCollision(com.sopwithredux.gameobjects.projectiles.Bullet bullet)
+    public void resolveBulletCollision(Bullet bullet)
     {
         world.remove(bullet);
     }

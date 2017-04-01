@@ -12,7 +12,6 @@ import com.sopwithredux.gameobjects.powerups.FuelPowerUp;
 import com.sopwithredux.gameobjects.powerups.PowerUp;
 import com.sopwithredux.gameobjects.projectiles.Bomb;
 import com.sopwithredux.gameobjects.projectiles.Bullet;
-import com.sopwithredux.userinterfaces.UserInterface;
 import com.sopwithredux.userinterfaces.WorldUserInterface;
 
 import java.util.ArrayList;
@@ -138,7 +137,6 @@ public class World
               new Vector2(256.0f, 128.0f),
               200.0, 0.0, false, false, true);
 
-            //outpost.addObserver(worldUserInterface);
             activeGameObjects.add(outpost);
 
             randomX = rand.nextInt(Gdx.graphics.getWidth() * 4) + Gdx.graphics.getWidth();
@@ -149,7 +147,6 @@ public class World
               new Vector2(256.0f, 128.0f),
               200.0, 0.0, false, false, false);
 
-            //outpost.addObserver(worldUserInterface);
             activeGameObjects.add(outpost);
         }
     }

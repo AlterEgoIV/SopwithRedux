@@ -1,6 +1,8 @@
 package com.sopwithredux;
 
 import com.sopwithredux.gameobjects.*;
+import com.sopwithredux.gameobjects.powerups.BombPowerUp;
+import com.sopwithredux.gameobjects.powerups.FuelPowerUp;
 import com.sopwithredux.gameobjects.powerups.PowerUp;
 import com.sopwithredux.gameobjects.projectiles.Bomb;
 import com.sopwithredux.gameobjects.projectiles.Bullet;
@@ -62,7 +64,6 @@ public class CollisionHandler
         {
             if(collidedObject2 instanceof Plane)
             {
-                //collidedObject1.moveBack((float)rect.getWidth(), (float)rect.getHeight());
                 if(collidedObject1.hitBox.x < collidedObject2.hitBox.x)
                 {
                     collidedObject1.move(-rect.width / 2, 0);
@@ -92,7 +93,6 @@ public class CollisionHandler
             {
                 world.remove(collidedObject2);
                 ((Plane)collidedObject1).takeDamage();
-                //collidedObject1.resolveBulletCollision((Bullet)collidedObject2);
             }
             else if(collidedObject2 instanceof Bomb)
             {
@@ -100,7 +100,15 @@ public class CollisionHandler
             }
             else if(collidedObject2 instanceof PowerUp)
             {
-                world.remove(collidedObject2);
+                if(collidedObject2 instanceof FuelPowerUp)
+                {
+                    ((Plane)collidedObject1).addFuel((FuelPowerUp)collidedObject2);
+                }
+
+                if(collidedObject2 instanceof BombPowerUp)
+                {
+                    ((Plane)collidedObject1).addBomb((BombPowerUp)collidedObject2);
+                }
             }
         }
         else if(collidedObject1 instanceof Bullet)

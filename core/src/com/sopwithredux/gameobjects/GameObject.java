@@ -21,8 +21,6 @@ public abstract class GameObject extends Subject
     {
         this.world = world;
         this.position = position;
-        this.dimension = dimension;
-        this.sourceDimension = sourceDimension;
         this.speed = speed;
         this.angle = angle;
         this.isFlippedX = isFlippedX;
