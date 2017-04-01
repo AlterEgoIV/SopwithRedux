@@ -213,6 +213,24 @@ public class WorldUserInterface extends UserInterface
 
                 break;
             }
+
+            case MAX_FUEL_RESTORED:
+            {
+                Plane plane = (Plane)subject;
+
+                if(plane.isPlayer1())
+                {
+                    player1UiValues[2] = 100;
+                    player1UiTextValues.get(2).setText(player1UiValues[2]);
+                }
+                else
+                {
+                    player2UiValues[2] = 100;
+                    player2UiTextValues.get(2).setText(player2UiValues[2]);
+                }
+
+                break;
+            }
         }
     }
 

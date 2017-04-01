@@ -15,9 +15,9 @@ public class Plane extends CollidableObject implements InputHandler
 {
     private int up, down, left, right, fire, dropBomb,
                 bulletCoolDownTime, bulletTimeToCool, bombCoolDownTime, bombTimeToCool, fuelDecreaseTime, timeToDecreaseFuel,
-                lives, outposts, bombs, fuel, damageTaken, maxDamage;
+                lives, outposts, bombs, fuel, maxFuel, damageTaken, maxDamage;
     private double maxSpeed;
-    private boolean isPlayer1;
+    private boolean isPlayer1, falling;
 
     public Plane(World world, Texture image, Vector2 position, Vector2 dimension, Vector2 sourceDimension, double speed,
                  double angle, boolean isFlippedX, boolean isFlippedY, int up, int down, int left, int right, int fire, int dropBomb,
@@ -40,10 +40,12 @@ public class Plane extends CollidableObject implements InputHandler
         lives = 5;
         outposts = 5;
         bombs = 5;
+        maxFuel = 100;
         fuel = 100;
         damageTaken = 0;
         maxDamage = 5;
         maxSpeed = this.speed;
+        falling = false;
     }
 
     @Override
@@ -51,10 +53,26 @@ public class Plane extends CollidableObject implements InputHandler
     {
         //speed = 0.0;
 
-        handleInput();
+        if(falling)
+        {
+            position.y -= speed * Gdx.graphics.getDeltaTime();
+        }
+        else
+        {
+            handleInput();
+        }
 
         direction.x = (float)Math.cos(Math.toRadians(angle));
         direction.y = (float)Math.sin(Math.toRadians(angle));
+
+        if(position.y <= Gdx.graphics.getHeight() / 5)
+        {
+            --lives;
+            sendEvent(this, Event.PLANE_LOST_LIFE);
+            position.y = Gdx.graphics.getHeight() - Gdx.graphics.getHeight() / 5;
+            fuel = maxFuel;
+            sendEvent(this, Event.MAX_FUEL_RESTORED);
+        }
 
         updateHitBox();
 
@@ -69,9 +87,16 @@ public class Plane extends CollidableObject implements InputHandler
             {
                 timeToDecreaseFuel = fuelDecreaseTime;
 
-                if(fuel > 0) --fuel;
-
-                sendEvent(this, Event.PLANE_LOST_FUEL);
+                if(fuel > 0)
+                {
+                    --fuel;
+                    falling = false;
+                    sendEvent(this, Event.PLANE_LOST_FUEL);
+                }
+                else
+                {
+                    falling = true;
+                }
             }
         }
     }
