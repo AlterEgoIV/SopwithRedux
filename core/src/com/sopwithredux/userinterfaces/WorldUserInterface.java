@@ -137,13 +137,19 @@ public class WorldUserInterface extends UserInterface
 
                 if(plane.isPlayer1())
                 {
-                    --player1UiValues[0];
-                    player1UiTextValues.get(0).setText(player1UiValues[0]);
+                    if(player1UiValues[0] > 0)
+                    {
+                        --player1UiValues[0];
+                        player1UiTextValues.get(0).setText(player1UiValues[0]);
+                    }
                 }
                 else
                 {
-                    --player2UiValues[0];
-                    player2UiTextValues.get(0).setText(player2UiValues[0]);
+                    if(player2UiValues[0] > 0)
+                    {
+                        --player2UiValues[0];
+                        player2UiTextValues.get(0).setText(player2UiValues[0]);
+                    }
                 }
 
                 break;
@@ -156,13 +162,19 @@ public class WorldUserInterface extends UserInterface
                 System.out.println("Called");
                 if(outpost.isPlayer1Outpost())
                 {
-                    --player1UiValues[1];
-                    player1UiTextValues.get(1).setText(player1UiValues[1]);
+                    if(player1UiValues[1] > 0)
+                    {
+                        --player1UiValues[1];
+                        player1UiTextValues.get(1).setText(player1UiValues[1]);
+                    }
                 }
                 else
                 {
-                    --player2UiValues[1];
-                    player2UiTextValues.get(1).setText(player2UiValues[1]);
+                    if(player2UiValues[1] > 0)
+                    {
+                        --player2UiValues[1];
+                        player2UiTextValues.get(1).setText(player2UiValues[1]);
+                    }
                 }
 //                if(plane.isPlayer1())
 //                {
