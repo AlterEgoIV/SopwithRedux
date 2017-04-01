@@ -184,13 +184,19 @@ public class WorldUserInterface extends UserInterface
 
                 if(plane.isPlayer1())
                 {
-                    --player1UiValues[3];
-                    player1UiTextValues.get(3).setText(player1UiValues[3]);
+                    if(player1UiValues[3] > 0)
+                    {
+                        --player1UiValues[3];
+                        player1UiTextValues.get(3).setText(player1UiValues[3]);
+                    }
                 }
                 else
                 {
-                    --player2UiValues[3];
-                    player2UiTextValues.get(3).setText(player2UiValues[3]);
+                    if(player2UiValues[3] > 0)
+                    {
+                        --player2UiValues[3];
+                        player2UiTextValues.get(3).setText(player2UiValues[3]);
+                    }
                 }
 
                 break;

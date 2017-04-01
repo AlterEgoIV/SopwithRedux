@@ -134,14 +134,6 @@ public class CollisionHandler
                 world.remove(collidedObject1);
             }
         }
-
-//        if(collidedObject1 instanceof Bullet)
-//        {
-//            if(collidedObject2 instanceof Plane)
-//            {
-//                collidedObject1.resolvePlaneCollision((Plane)collidedObject2);
-//            }
-//        }
     }
 
     public void add(CollidableObject collidableObject)
