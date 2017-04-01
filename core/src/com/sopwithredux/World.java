@@ -3,7 +3,6 @@ package com.sopwithredux;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
@@ -11,9 +10,8 @@ import com.sopwithredux.gameobjects.*;
 import com.sopwithredux.gameobjects.powerups.BombPowerUp;
 import com.sopwithredux.gameobjects.powerups.FuelPowerUp;
 import com.sopwithredux.gameobjects.powerups.PowerUp;
-import com.sopwithredux.gameobjects.uiobjects.Icon;
-import com.sopwithredux.gameobjects.uiobjects.Text;
-import com.sopwithredux.gameobjects.uiobjects.UIObject;
+import com.sopwithredux.gameobjects.projectiles.Bomb;
+import com.sopwithredux.gameobjects.projectiles.Bullet;
 import com.sopwithredux.userinterfaces.UserInterface;
 import com.sopwithredux.userinterfaces.WorldUserInterface;
 
@@ -28,7 +26,7 @@ public class World
 {
     private AssetManager assetManager;
     private List<GameObject> activeGameObjects, inactiveGameObjects, activeGameObjectsToAdd, activeGameObjectsToRemove;
-    private UserInterface userInterface;
+    private WorldUserInterface worldUserInterface;
     private CollisionHandler collisionHandler;
     private Texture background;
     private Random rand;
@@ -41,7 +39,7 @@ public class World
         inactiveGameObjects = new ArrayList<GameObject>();
         activeGameObjectsToAdd = new ArrayList<GameObject>();
         activeGameObjectsToRemove = new ArrayList<GameObject>();
-        userInterface = new WorldUserInterface(this, assetManager);
+        worldUserInterface = new WorldUserInterface(this, assetManager);
         collisionHandler = new CollisionHandler(this);
         background = assetManager.get("background.png");
         rand = new Random();
@@ -63,7 +61,7 @@ public class World
             gameObject.update();
         }
 
-        userInterface.update();
+        worldUserInterface.update();
 
         if(!activeGameObjectsToRemove.isEmpty())
         {
@@ -95,7 +93,7 @@ public class World
             gameObject.render(batch);
         }
 
-        userInterface.render(batch);
+        worldUserInterface.render(batch);
     }
 
     private void createGameObjects()
@@ -127,44 +125,61 @@ public class World
 
     private void createOutposts()
     {
+        Outpost outpost;
         double randomX;
 
         for(int i = 0; i < 5; ++i)
         {
             randomX = rand.nextInt(Gdx.graphics.getWidth() * 4) + Gdx.graphics.getWidth();
 
-            activeGameObjects.add(new Outpost(this, assetManager.get("outpost1.png", Texture.class),
+            outpost = new Outpost(this, assetManager.get("outpost1.png", Texture.class),
               new Vector2((float)randomX, Gdx.graphics.getHeight() / 8),
               new Vector2(Gdx.graphics.getWidth() / 20.0f, Gdx.graphics.getWidth() / 20.0f),
               new Vector2(256.0f, 128.0f),
-              200.0, 0.0, false, false, true));
+              200.0, 0.0, false, false, true);
+
+            //outpost.addObserver(worldUserInterface);
+            activeGameObjects.add(outpost);
 
             randomX = rand.nextInt(Gdx.graphics.getWidth() * 4) + Gdx.graphics.getWidth();
 
-            activeGameObjects.add(new Outpost(this, assetManager.get("outpost2.png", Texture.class),
+            outpost = new Outpost(this, assetManager.get("outpost2.png", Texture.class),
               new Vector2((float)randomX, Gdx.graphics.getHeight() / 8),
               new Vector2(Gdx.graphics.getWidth() / 20.0f, Gdx.graphics.getWidth() / 20.0f),
               new Vector2(256.0f, 128.0f),
-              200.0, 0.0, false, false, false));
+              200.0, 0.0, false, false, false);
+
+            //outpost.addObserver(worldUserInterface);
+            activeGameObjects.add(outpost);
         }
     }
 
     private void createPlanes()
     {
-        activeGameObjects.add(new Plane(this, assetManager.get("plane1.png", Texture.class),
+        Plane plane = new Plane(this, assetManager.get("plane1.png", Texture.class),
           new Vector2(Gdx.graphics.getWidth() / 3.0f, Gdx.graphics.getHeight() / 2.0f),
           new Vector2(Gdx.graphics.getWidth() / 10.0f, Gdx.graphics.getWidth() / 20.0f),
           new Vector2(512.0f, 256.0f),
           200.0, 0.0, false, false,
-          Input.Keys.W, Input.Keys.S, Input.Keys.A, Input.Keys.D, Input.Keys.E, Input.Keys.F));
+          Input.Keys.W, Input.Keys.S, Input.Keys.A, Input.Keys.D, Input.Keys.E, Input.Keys.F,
+          true);
 
-        activeGameObjects.add(new Plane(this, assetManager.get("plane2.png", Texture.class),
+        plane.addObserver(worldUserInterface);
+        worldUserInterface.setPlayer1UiValues(plane.getLives(), plane.getOutposts(), plane.getFuel(), plane.getBombs());
+        activeGameObjects.add(plane);
+
+        plane = new Plane(this, assetManager.get("plane2.png", Texture.class),
           new Vector2(Gdx.graphics.getWidth() / 3.0f, Gdx.graphics.getHeight() / 2.0f),
           /*new Vector2(Gdx.graphics.getWidth() - (Gdx.graphics.getWidth() / 3.0f), Gdx.graphics.getHeight() / 2.0f),*/
           new Vector2(Gdx.graphics.getWidth() / 10.0f, Gdx.graphics.getWidth() / 20.0f),
           new Vector2(512.0f, 256.0f),
           200.0, 180.0, false, true,
-          Input.Keys.UP, Input.Keys.DOWN, Input.Keys.LEFT, Input.Keys.RIGHT, Input.Keys.SHIFT_RIGHT, Input.Keys.ENTER));
+          Input.Keys.UP, Input.Keys.DOWN, Input.Keys.LEFT, Input.Keys.RIGHT, Input.Keys.SHIFT_RIGHT, Input.Keys.ENTER,
+          false);
+
+        plane.addObserver(worldUserInterface);
+        worldUserInterface.setPlayer2UiValues(plane.getLives(), plane.getOutposts(), plane.getFuel(), plane.getBombs());
+        activeGameObjects.add(plane);
     }
 
     private void spawnPowerUps()
@@ -213,7 +228,7 @@ public class World
 
     public void addBullet(Vector2 position, Vector2 dimension, double speed, double angle, boolean isFlippedX, boolean isFlippedY)
     {
-        com.sopwithredux.gameobjects.projectiles.Bullet bullet = new com.sopwithredux.gameobjects.projectiles.Bullet(this, assetManager.get("bullet.png", Texture.class),
+        Bullet bullet = new Bullet(this, assetManager.get("bullet.png", Texture.class),
           position, dimension, new Vector2(32, 16), speed, angle, isFlippedX, isFlippedY);
 
         activeGameObjectsToAdd.add(bullet);
@@ -224,9 +239,10 @@ public class World
 
     public void addBomb(Vector2 position, Vector2 dimension, double speed, double angle, boolean isFlippedX, boolean isFlippedY)
     {
-        com.sopwithredux.gameobjects.projectiles.Bomb bomb = new com.sopwithredux.gameobjects.projectiles.Bomb(this, assetManager.get("bomb.png", Texture.class),
+        Bomb bomb = new Bomb(this, assetManager.get("bomb.png", Texture.class),
           position, dimension, new Vector2(128, 64), speed, angle, isFlippedX, isFlippedY);
 
+        bomb.addObserver(worldUserInterface);
         activeGameObjectsToAdd.add(bomb);
         collisionHandler.add(bomb);
     }

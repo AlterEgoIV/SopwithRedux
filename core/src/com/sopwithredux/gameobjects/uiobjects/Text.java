@@ -18,8 +18,22 @@ public class Text extends UIObject
                 boolean isFlippedX, boolean isFlippedY, String text)
     {
         super(world, position, speed, angle, isFlippedX, isFlippedY);
+
         bitmapFont = new BitmapFont();
         glyphLayout = new GlyphLayout(bitmapFont, text);
+        position.x -= glyphLayout.width / 2;
+        position.y -= glyphLayout.height / 2;
+        bitmapFont.getData().setScale((float)scaleX, (float)scaleY);
+    }
+
+    public Text(World world, Vector2 position, double speed, double angle, double scaleX, double scaleY,
+                boolean isFlippedX, boolean isFlippedY, int text)
+    {
+        super(world, position, speed, angle, isFlippedX, isFlippedY);
+
+        String t = Integer.toString(text);
+        bitmapFont = new BitmapFont();
+        glyphLayout = new GlyphLayout(bitmapFont, t);
         position.x -= glyphLayout.width / 2;
         position.y -= glyphLayout.height / 2;
         bitmapFont.getData().setScale((float)scaleX, (float)scaleY);
@@ -35,5 +49,16 @@ public class Text extends UIObject
     public void render(SpriteBatch batch)
     {
         bitmapFont.draw(batch, glyphLayout, position.x, position.y);
+    }
+
+    public void setText(String text)
+    {
+        glyphLayout.setText(bitmapFont, text);
+    }
+
+    public void setText(int text)
+    {
+        String t = Integer.toString(text);
+        glyphLayout.setText(bitmapFont, t);
     }
 }

@@ -60,4 +60,9 @@ public class Outpost extends CollidableObject
     {
 
     }
+
+    public boolean isPlayer1Outpost()
+    {
+        return player1Outpost;
+    }
 }

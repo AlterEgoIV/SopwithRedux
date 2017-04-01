@@ -91,6 +91,7 @@ public class CollisionHandler
             else if(collidedObject2 instanceof Bullet)
             {
                 world.remove(collidedObject2);
+                ((Plane)collidedObject1).takeDamage();
                 //collidedObject1.resolveBulletCollision((Bullet)collidedObject2);
             }
             else if(collidedObject2 instanceof Bomb)
@@ -102,20 +103,28 @@ public class CollisionHandler
                 world.remove(collidedObject2);
             }
         }
+        else if(collidedObject1 instanceof Bullet)
+        {
+            if(collidedObject2 instanceof Plane)
+            {
+                world.remove(collidedObject1);
+                ((Plane)collidedObject2).takeDamage();
+            }
+        }
         else if(collidedObject1 instanceof Bomb)
         {
             if(collidedObject2 instanceof Outpost)
             {
-                world.remove(collidedObject1);
-                world.remove(collidedObject2);
+                System.out.println("Called1");
+                ((Bomb)collidedObject1).destroyOutpost((Outpost)collidedObject2);
             }
         }
         else if(collidedObject1 instanceof Outpost)
         {
             if(collidedObject2 instanceof Bomb)
             {
-                world.remove(collidedObject1);
-                world.remove(collidedObject2);
+                System.out.println("Called2");
+                ((Bomb)collidedObject2).destroyOutpost((Outpost)collidedObject1);
             }
         }
         else if(collidedObject1 instanceof PowerUp)

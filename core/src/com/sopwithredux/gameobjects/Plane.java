@@ -3,8 +3,8 @@ package com.sopwithredux.gameobjects;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
-import com.sopwithredux.InputHandler;
-import com.sopwithredux.World;
+import com.sopwithredux.*;
+import com.sopwithredux.Event;
 
 import java.awt.*;
 
@@ -13,11 +13,15 @@ import java.awt.*;
  */
 public class Plane extends CollidableObject implements InputHandler
 {
-    private int up, down, left, right, fire, dropBomb, bulletCoolDownTime, bulletTimeToCool, bombCoolDownTime, bombTimeToCool;
+    private int up, down, left, right, fire, dropBomb,
+                bulletCoolDownTime, bulletTimeToCool, bombCoolDownTime, bombTimeToCool, fuelDecreaseTime, timeToDecreaseFuel,
+                lives, outposts, bombs, fuel, damageTaken, maxDamage;
     private double maxSpeed;
+    private boolean isPlayer1;
 
     public Plane(World world, Texture image, Vector2 position, Vector2 dimension, Vector2 sourceDimension, double speed,
-                 double angle, boolean isFlippedX, boolean isFlippedY, int up, int down, int left, int right, int fire, int dropBomb)
+                 double angle, boolean isFlippedX, boolean isFlippedY, int up, int down, int left, int right, int fire, int dropBomb,
+                 boolean isPlayer1)
     {
         super(world, image, position, dimension, sourceDimension, speed, angle, isFlippedX, isFlippedY);
         this.up = up;
@@ -26,10 +30,19 @@ public class Plane extends CollidableObject implements InputHandler
         this.right = right;
         this.fire = fire;
         this.dropBomb = dropBomb;
+        this.isPlayer1 = isPlayer1;
         bulletCoolDownTime = 60 / 4;
         bombCoolDownTime = 60;
         bulletTimeToCool = 0;
         bombTimeToCool = 0;
+        fuelDecreaseTime = 30;
+        timeToDecreaseFuel = 30;
+        lives = 5;
+        outposts = 5;
+        bombs = 5;
+        fuel = 100;
+        damageTaken = 0;
+        maxDamage = 5;
         maxSpeed = this.speed;
     }
 
@@ -45,8 +58,22 @@ public class Plane extends CollidableObject implements InputHandler
 
         updateHitBox();
 
-        if(bulletTimeToCool > 0) bulletTimeToCool--;
-        if(bombTimeToCool > 0) bombTimeToCool--;
+        if(bulletTimeToCool > 0) --bulletTimeToCool;
+        if(bombTimeToCool > 0) --bombTimeToCool;
+
+        if(timeToDecreaseFuel > 0)
+        {
+            --timeToDecreaseFuel;
+
+            if(timeToDecreaseFuel == 0)
+            {
+                timeToDecreaseFuel = fuelDecreaseTime;
+
+                if(fuel > 0) --fuel;
+
+                sendEvent(this, Event.PLANE_LOST_FUEL);
+            }
+        }
     }
 
     @Override
@@ -112,12 +139,32 @@ public class Plane extends CollidableObject implements InputHandler
 
     private void dropBomb()
     {
-        Vector2 pos = position.cpy();
-        Vector2 dim = new Vector2(dimension.x / 3, dimension.y / 3);
+        if(bombs > 0)
+        {
+            --bombs;
 
-        pos.y -= (dimension.y / 2 + dim.y) - 1;
+            sendEvent(this, Event.PLANE_LOST_BOMB);
 
-        world.addBomb(pos, dim, maxSpeed * 1.1, angle, isFlippedX, isFlippedY);
+            Vector2 pos = position.cpy();
+            Vector2 dim = new Vector2(dimension.x / 3, dimension.y / 3);
+
+            pos.y -= (dimension.y / 2 + dim.y) - 1;
+
+            world.addBomb(pos, dim, maxSpeed * 1.1, angle, isFlippedX, isFlippedY);
+        }
+    }
+
+    public void takeDamage()
+    {
+        ++damageTaken;
+
+        if(damageTaken == maxDamage)
+        {
+            --lives;
+            damageTaken = 0;
+
+            sendEvent(this, Event.PLANE_LOST_LIFE);
+        }
     }
 
     @Override
@@ -165,5 +212,30 @@ public class Plane extends CollidableObject implements InputHandler
     public void resolveBulletCollision(com.sopwithredux.gameobjects.projectiles.Bullet bullet)
     {
         world.remove(bullet);
+    }
+
+    public int getLives()
+    {
+        return lives;
+    }
+
+    public int getOutposts()
+    {
+        return outposts;
+    }
+
+    public int getBombs()
+    {
+        return bombs;
+    }
+
+    public int getFuel()
+    {
+        return fuel;
+    }
+
+    public boolean isPlayer1()
+    {
+        return isPlayer1;
     }
 }

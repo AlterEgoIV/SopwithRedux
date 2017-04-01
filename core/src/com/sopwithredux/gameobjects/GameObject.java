@@ -3,12 +3,13 @@ package com.sopwithredux.gameobjects;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.sopwithredux.Subject;
 import com.sopwithredux.World;
 
 /**
  * Created by Carl on 08/03/2017.
  */
-public abstract class GameObject
+public abstract class GameObject extends Subject
 {
     protected World world;
     protected Vector2 position, dimension, sourceDimension, direction;

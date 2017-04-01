@@ -3,8 +3,10 @@ package com.sopwithredux.gameobjects.projectiles;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
+import com.sopwithredux.Event;
 import com.sopwithredux.World;
 import com.sopwithredux.gameobjects.CollidableObject;
+import com.sopwithredux.gameobjects.Outpost;
 import com.sopwithredux.gameobjects.Plane;
 
 /**
@@ -50,6 +52,15 @@ public class Bomb extends CollidableObject
         }
 
         updateHitBox();
+    }
+
+    public void destroyOutpost(Outpost outpost)
+    {
+        System.out.println("Called3");
+        sendEvent(outpost, Event.BOMB_DESTROYED_OUTPOST);
+
+        world.remove(this);
+        world.remove(outpost);
     }
 
     @Override
