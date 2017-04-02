@@ -281,6 +281,8 @@ public class Plane extends CollidableObject implements InputHandler
         return fuel;
     }
 
+    public int getMaxFuel() { return  maxFuel; }
+
     public boolean isPlayer1()
     {
         return isPlayer1;

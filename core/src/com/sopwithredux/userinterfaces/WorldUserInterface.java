@@ -116,6 +116,50 @@ public class WorldUserInterface extends UserInterface
         }
     }
 
+    private void decrementPlaneUiElementValue(int uiElement, Subject subject)
+    {
+        Plane plane = (Plane)subject;
+
+        if(plane.isPlayer1())
+        {
+            if(player1UiValues[uiElement] > 0)
+            {
+                --player1UiValues[uiElement];
+                player1UiTextValues.get(uiElement).setText(player1UiValues[uiElement]);
+            }
+        }
+        else
+        {
+            if(player2UiValues[uiElement] > 0)
+            {
+                --player2UiValues[uiElement];
+                player2UiTextValues.get(uiElement).setText(player2UiValues[uiElement]);
+            }
+        }
+    }
+
+    private void decrementOutpostUiElementValue(int uiElement, Subject subject)
+    {
+        Outpost outpost = (Outpost)subject;
+
+        if(outpost.isPlayer1Outpost())
+        {
+            if(player1UiValues[uiElement] > 0)
+            {
+                --player1UiValues[uiElement];
+                player1UiTextValues.get(uiElement).setText(player1UiValues[uiElement]);
+            }
+        }
+        else
+        {
+            if(player2UiValues[uiElement] > 0)
+            {
+                --player2UiValues[uiElement];
+                player2UiTextValues.get(uiElement).setText(player2UiValues[uiElement]);
+            }
+        }
+    }
+
     @Override
     public void handleEvent(Subject subject, Event event)
     {
@@ -123,91 +167,28 @@ public class WorldUserInterface extends UserInterface
         {
             case PLANE_LOST_LIFE:
             {
-                Plane plane = (Plane)subject;
-
-                if(plane.isPlayer1())
-                {
-                    if(player1UiValues[0] > 0)
-                    {
-                        --player1UiValues[0];
-                        player1UiTextValues.get(0).setText(player1UiValues[0]);
-                    }
-                }
-                else
-                {
-                    if(player2UiValues[0] > 0)
-                    {
-                        --player2UiValues[0];
-                        player2UiTextValues.get(0).setText(player2UiValues[0]);
-                    }
-                }
+                decrementPlaneUiElementValue(0, subject);
 
                 break;
             }
 
             case BOMB_DESTROYED_OUTPOST:
             {
-                Outpost outpost = (Outpost)subject;
-
-                System.out.println("Called");
-                if(outpost.isPlayer1Outpost())
-                {
-                    if(player1UiValues[1] > 0)
-                    {
-                        --player1UiValues[1];
-                        player1UiTextValues.get(1).setText(player1UiValues[1]);
-                    }
-                }
-                else
-                {
-                    if(player2UiValues[1] > 0)
-                    {
-                        --player2UiValues[1];
-                        player2UiTextValues.get(1).setText(player2UiValues[1]);
-                    }
-                }
-
-                break;
-            }
-
-            case PLANE_LOST_BOMB:
-            {
-                Plane plane = (Plane)subject;
-
-                if(plane.isPlayer1())
-                {
-                    if(player1UiValues[3] > 0)
-                    {
-                        --player1UiValues[3];
-                        player1UiTextValues.get(3).setText(player1UiValues[3]);
-                    }
-                }
-                else
-                {
-                    if(player2UiValues[3] > 0)
-                    {
-                        --player2UiValues[3];
-                        player2UiTextValues.get(3).setText(player2UiValues[3]);
-                    }
-                }
+                decrementOutpostUiElementValue(1, subject);
 
                 break;
             }
 
             case PLANE_LOST_FUEL:
             {
-                Plane plane = (Plane)subject;
+                decrementPlaneUiElementValue(2, subject);
 
-                if(plane.isPlayer1())
-                {
-                    --player1UiValues[2];
-                    player1UiTextValues.get(2).setText(player1UiValues[2]);
-                }
-                else
-                {
-                    --player2UiValues[2];
-                    player2UiTextValues.get(2).setText(player2UiValues[2]);
-                }
+                break;
+            }
+
+            case PLANE_LOST_BOMB:
+            {
+                decrementPlaneUiElementValue(3, subject);
 
                 break;
             }
@@ -236,12 +217,12 @@ public class WorldUserInterface extends UserInterface
 
                 if(plane.isPlayer1())
                 {
-                    player1UiValues[2] = 100;
+                    player1UiValues[2] = plane.getMaxFuel();
                     player1UiTextValues.get(2).setText(player1UiValues[2]);
                 }
                 else
                 {
-                    player2UiValues[2] = 100;
+                    player2UiValues[2] = plane.getMaxFuel();
                     player2UiTextValues.get(2).setText(player2UiValues[2]);
                 }
 
