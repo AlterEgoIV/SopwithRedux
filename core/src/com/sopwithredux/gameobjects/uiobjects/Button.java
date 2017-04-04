@@ -52,10 +52,6 @@ public class Button extends UIObject
                     return false;
                 }
             });
-//            if(Gdx.input.justTouched())
-//            {
-//                sendEvent(this, buttonClickEvent);
-//            }
         }
         else
         {

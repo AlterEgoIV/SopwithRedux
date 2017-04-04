@@ -1,6 +1,7 @@
 package com.sopwithredux.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
@@ -12,14 +13,13 @@ import com.sopwithredux.gameobjects.uiobjects.Button;
 import com.sopwithredux.gameobjects.uiobjects.UIObject;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
- * Created by Carl on 16/03/2017.
+ * Created by Carl on 04/04/2017.
  */
-public class MainMenuScreen extends GameScreen
+public class ControlsScreen extends GameScreen
 {
-    public MainMenuScreen(SopwithRedux game, AssetManager assetManager)
+    public ControlsScreen(SopwithRedux game, AssetManager assetManager)
     {
         super(game);
 
@@ -48,19 +48,7 @@ public class MainMenuScreen extends GameScreen
     @Override
     public void render(float delta)
     {
-        for(UIObject uiObject : uiObjects)
-        {
-            uiObject.update();
-        }
 
-        batch.begin();
-        batch.draw(background, 0, 0);
-
-        for(UIObject uiObject : uiObjects)
-        {
-            uiObject.render(batch);
-        }
-        batch.end();
     }
 
     @Override
@@ -83,6 +71,18 @@ public class MainMenuScreen extends GameScreen
 
     @Override
     public void hide()
+    {
+
+    }
+
+    @Override
+    public void dispose()
+    {
+
+    }
+
+    @Override
+    public void handleEvent(Subject subject, Event event)
     {
 
     }
