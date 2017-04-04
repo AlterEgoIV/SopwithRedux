@@ -9,6 +9,7 @@ import com.sopwithredux.SopwithRedux;
 import com.sopwithredux.Subject;
 import com.sopwithredux.gameobjects.uiobjects.UIObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,6 +26,7 @@ public abstract class GameScreen implements Screen, Observer
     {
         this.game = game;
         batch = new SpriteBatch();
+        uiObjects = new ArrayList<UIObject>();
     }
 
     @Override

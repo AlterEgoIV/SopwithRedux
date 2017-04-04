@@ -15,6 +15,7 @@ public class Button extends UIObject
 {
     private Texture overlay, underlay;
     private Event buttonClickEvent;
+    private Vector2 mousePosition;
 
     public Button(Texture image, Texture overlay, Vector2 position, Vector2 dimension, Vector2 sourceDimension,
                   double speed, double angle, boolean isFlippedX, boolean isFlippedY, Event buttonClickEvent)
@@ -24,13 +25,14 @@ public class Button extends UIObject
         this.underlay = image;
         this.overlay = overlay;
         this.buttonClickEvent = buttonClickEvent;
+        mousePosition = new Vector2(position.x, Gdx.graphics.getHeight() - position.y);
     }
 
     @Override
     public void update()
     {
-        if(Gdx.input.getX() > position.x - dimension.x / 2 && Gdx.input.getX() < position.x + dimension.x / 2 &&
-           Gdx.input.getY() > position.y - dimension.y / 2 && Gdx.input.getY() < position.y + dimension.y / 2)
+        if(Gdx.input.getX() > mousePosition.x - (dimension.x / 2) && Gdx.input.getX() < mousePosition.x + (dimension.x / 2) &&
+           Gdx.input.getY() > mousePosition.y - (dimension.y / 2) && Gdx.input.getY() < mousePosition.y + (dimension.y / 2))
         {
             image = overlay;
 
@@ -41,8 +43,8 @@ public class Button extends UIObject
                 {
                     if(button == Input.Buttons.LEFT)
                     {
-                        if(screenX > position.x - dimension.x / 2 && screenX < position.x + dimension.x / 2 &&
-                           screenY > position.y - dimension.y / 2 && screenY < position.y + dimension.y / 2)
+                        if(screenX > mousePosition.x - dimension.x / 2 && screenX < mousePosition.x + dimension.x / 2 &&
+                           screenY > mousePosition.y - dimension.y / 2 && screenY < mousePosition.y + dimension.y / 2)
                         {
                             sendEvent(Button.this, buttonClickEvent);
                             return true;
