@@ -25,7 +25,9 @@ public class PlayScreen extends GameScreen
     public PlayScreen(SopwithRedux game, AssetManager assetManager)
     {
         super(game);
-        world = new World(assetManager);
+
+        background = assetManager.get("background.png");
+        world = new World(assetManager, background);
 //        bitmapFont = new BitmapFont();
 //        bitmapFont.setFixedWidthGlyphs("hello");
 //        bitmapFont.getData().scale(3);

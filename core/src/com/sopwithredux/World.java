@@ -24,23 +24,23 @@ import java.util.Random;
 public class World
 {
     private AssetManager assetManager;
+    private Texture background;
     private List<GameObject> activeGameObjects, inactiveGameObjects, activeGameObjectsToAdd, activeGameObjectsToRemove;
     private WorldUserInterface worldUserInterface;
     private CollisionHandler collisionHandler;
-    private Texture background;
     private Random rand;
     private int spawnTime, timeLeftToSpawn;
 
-    public World(AssetManager assetManager)
+    public World(AssetManager assetManager, Texture background)
     {
         this.assetManager = assetManager;
+        this.background = background;
         activeGameObjects = new ArrayList<GameObject>();
         inactiveGameObjects = new ArrayList<GameObject>();
         activeGameObjectsToAdd = new ArrayList<GameObject>();
         activeGameObjectsToRemove = new ArrayList<GameObject>();
         worldUserInterface = new WorldUserInterface(this, assetManager);
         collisionHandler = new CollisionHandler(this);
-        background = assetManager.get("background.png");
         rand = new Random();
         spawnTime = 300;
         timeLeftToSpawn = 0;

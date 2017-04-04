@@ -27,7 +27,8 @@ public class SopwithRedux extends Game
 
 		screens = new HashMap<ScreenName, Screen>();
 		createScreens();
-		setScreen(screens.get(ScreenName.PLAY_SCREEN));
+		setScreen(screens.get(ScreenName.MAIN_MENU_SCREEN));
+		//setScreen(screens.get(ScreenName.PLAY_SCREEN));
 	}
 
 	@Override
@@ -47,7 +48,7 @@ public class SopwithRedux extends Game
 
 	private void createScreens()
 	{
-		screens.put(ScreenName.MAINMENU_SCREEN, new MainMenuScreen(this, assetManager));
+		screens.put(ScreenName.MAIN_MENU_SCREEN, new MainMenuScreen(this, assetManager));
 		screens.put(ScreenName.PLAY_SCREEN, new PlayScreen(this, assetManager));
 	}
 
@@ -65,6 +66,14 @@ public class SopwithRedux extends Game
 		assetManager.load("heart.png", Texture.class);
 		assetManager.load("outpost1.png", Texture.class);
 		assetManager.load("outpost2.png", Texture.class);
+		assetManager.load("startmenu.png", Texture.class);
+		assetManager.load("controls.png", Texture.class);
+		assetManager.load("startbutton.png", Texture.class);
+		assetManager.load("startselect.png", Texture.class);
+		assetManager.load("controlbutton.png", Texture.class);
+		assetManager.load("controlselect.png", Texture.class);
+		assetManager.load("exitbutton.png", Texture.class);
+		assetManager.load("exitselect.png", Texture.class);
 		assetManager.finishLoading();
 	}
 }

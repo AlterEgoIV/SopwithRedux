@@ -10,6 +10,11 @@ import com.sopwithredux.gameobjects.GameObject;
  */
 public abstract class UIObject extends GameObject
 {
+    protected UIObject(Texture image, Vector2 position, Vector2 dimension, Vector2 sourceDimension, double speed, double angle, boolean isFlippedX, boolean isFlippedY)
+    {
+        super(image, position, dimension, sourceDimension, speed, angle, isFlippedX, isFlippedY);
+    }
+
     protected UIObject(World world, Vector2 position, double speed, double angle, boolean isFlippedX, boolean isFlippedY)
     {
         super(world, position, speed, angle, isFlippedX, isFlippedY);
