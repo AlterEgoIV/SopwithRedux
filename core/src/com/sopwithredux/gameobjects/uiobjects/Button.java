@@ -43,8 +43,8 @@ public class Button extends UIObject
                 {
                     if(button == Input.Buttons.LEFT)
                     {
-                        if(screenX > mousePosition.x - dimension.x / 2 && screenX < mousePosition.x + dimension.x / 2 &&
-                           screenY > mousePosition.y - dimension.y / 2 && screenY < mousePosition.y + dimension.y / 2)
+                        if(screenX > mousePosition.x - (dimension.x / 2) && screenX < mousePosition.x + (dimension.x / 2) &&
+                           screenY > mousePosition.y - (dimension.y / 2) && screenY < mousePosition.y + (dimension.y / 2))
                         {
                             sendEvent(Button.this, buttonClickEvent);
                             return true;

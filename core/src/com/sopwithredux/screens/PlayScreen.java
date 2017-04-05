@@ -90,4 +90,10 @@ public class PlayScreen extends GameScreen
     {
 
     }
+
+    @Override
+    protected void createUserInterface(AssetManager assetManager)
+    {
+
+    }
 }

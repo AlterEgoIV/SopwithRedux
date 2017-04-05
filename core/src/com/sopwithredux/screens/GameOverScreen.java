@@ -1,5 +1,6 @@
 package com.sopwithredux.screens;
 
+import com.badlogic.gdx.assets.AssetManager;
 import com.sopwithredux.SopwithRedux;
 
 /**
@@ -7,7 +8,7 @@ import com.sopwithredux.SopwithRedux;
  */
 public class GameOverScreen extends GameScreen
 {
-    protected GameOverScreen(SopwithRedux game)
+    public GameOverScreen(SopwithRedux game, AssetManager assetManager)
     {
         super(game);
     }
@@ -44,6 +45,12 @@ public class GameOverScreen extends GameScreen
 
     @Override
     public void hide()
+    {
+
+    }
+
+    @Override
+    protected void createUserInterface(AssetManager assetManager)
     {
 
     }

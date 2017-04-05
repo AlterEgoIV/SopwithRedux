@@ -24,7 +24,6 @@ public class MainMenuScreen extends GameScreen
         super(game);
 
         background = assetManager.get("startmenu.png");
-
         createUserInterface(assetManager);
 
         for(UIObject uiObject : uiObjects)
@@ -37,46 +36,6 @@ public class MainMenuScreen extends GameScreen
     public void show()
     {
 
-    }
-
-    @Override
-    public void render(float delta)
-    {
-        for(UIObject uiObject : uiObjects)
-        {
-            uiObject.update();
-        }
-
-        batch.begin();
-        batch.draw(background, 0, 0);
-
-        for(UIObject uiObject : uiObjects)
-        {
-            uiObject.render(batch);
-        }
-        batch.end();
-    }
-
-    private void createUserInterface(AssetManager assetManager)
-    {
-        float yOffset = (Gdx.graphics.getHeight() / 20) * 2;
-        float x = Gdx.graphics.getWidth() / 2, y = Gdx.graphics.getHeight() / 2;
-
-        uiObjects.add(new Button(assetManager.get("startbutton.png", Texture.class),
-          assetManager.get("startselect.png", Texture.class),
-          new Vector2(x, y),
-          new Vector2(Gdx.graphics.getWidth() / 10, Gdx.graphics.getHeight() / 20),
-          new Vector2(480, 108),
-          0.0, 0.0, false, false, Event.GOTO_PLAY_SCREEN));
-
-        y = (Gdx.graphics.getHeight() / 2) - yOffset;
-
-        uiObjects.add(new Button(assetManager.get("controlbutton.png", Texture.class),
-          assetManager.get("controlselect.png", Texture.class),
-          new Vector2(x, y),
-          new Vector2(Gdx.graphics.getWidth() / 10, Gdx.graphics.getHeight() / 20),
-          new Vector2(480, 108),
-          0.0, 0.0, false, false, Event.GOTO_CONTROL_SCREEN));
     }
 
     @Override
@@ -101,5 +60,28 @@ public class MainMenuScreen extends GameScreen
     public void hide()
     {
 
+    }
+
+    @Override
+    protected void createUserInterface(AssetManager assetManager)
+    {
+        float yOffset = (Gdx.graphics.getHeight() / 20) * 2;
+        float x = Gdx.graphics.getWidth() / 2, y = Gdx.graphics.getHeight() / 2;
+
+        uiObjects.add(new Button(assetManager.get("startbutton.png", Texture.class),
+          assetManager.get("startselect.png", Texture.class),
+          new Vector2(x, y),
+          new Vector2(Gdx.graphics.getWidth() / 10, Gdx.graphics.getHeight() / 20),
+          new Vector2(480, 108),
+          0.0, 0.0, false, false, Event.GOTO_PLAY_SCREEN));
+
+        y = (Gdx.graphics.getHeight() / 2) - yOffset;
+
+        uiObjects.add(new Button(assetManager.get("controlbutton.png", Texture.class),
+          assetManager.get("controlselect.png", Texture.class),
+          new Vector2(x, y),
+          new Vector2(Gdx.graphics.getWidth() / 10, Gdx.graphics.getHeight() / 20),
+          new Vector2(480, 108),
+          0.0, 0.0, false, false, Event.GOTO_CONTROL_SCREEN));
     }
 }

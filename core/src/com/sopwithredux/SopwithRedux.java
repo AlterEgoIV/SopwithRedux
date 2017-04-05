@@ -6,9 +6,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
-import com.sopwithredux.screens.MainMenuScreen;
-import com.sopwithredux.screens.PlayScreen;
-import com.sopwithredux.screens.ScreenName;
+import com.sopwithredux.screens.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -28,7 +26,6 @@ public class SopwithRedux extends Game
 		screens = new HashMap<ScreenName, Screen>();
 		createScreens();
 		setScreen(screens.get(ScreenName.MAIN_MENU_SCREEN));
-		//setScreen(screens.get(ScreenName.PLAY_SCREEN));
 	}
 
 	@Override
@@ -44,12 +41,6 @@ public class SopwithRedux extends Game
 	public void dispose()
 	{
 		assetManager.dispose();
-	}
-
-	private void createScreens()
-	{
-		screens.put(ScreenName.MAIN_MENU_SCREEN, new MainMenuScreen(this, assetManager));
-		screens.put(ScreenName.PLAY_SCREEN, new PlayScreen(this, assetManager));
 	}
 
 	private void loadAssets()
@@ -75,5 +66,13 @@ public class SopwithRedux extends Game
 		assetManager.load("exitbutton.png", Texture.class);
 		assetManager.load("exitselect.png", Texture.class);
 		assetManager.finishLoading();
+	}
+
+	private void createScreens()
+	{
+		screens.put(ScreenName.MAIN_MENU_SCREEN, new MainMenuScreen(this, assetManager));
+		screens.put(ScreenName.PLAY_SCREEN, new PlayScreen(this, assetManager));
+		screens.put(ScreenName.CONTROLS_SCREEN, new ControlsScreen(this, assetManager));
+		screens.put(ScreenName.GAME_OVER_SCREEN, new GameOverScreen(this, assetManager));
 	}
 }

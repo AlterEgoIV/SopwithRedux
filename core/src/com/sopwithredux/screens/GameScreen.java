@@ -1,6 +1,7 @@
 package com.sopwithredux.screens;
 
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.sopwithredux.Event;
@@ -27,6 +28,31 @@ public abstract class GameScreen implements Screen, Observer
         this.game = game;
         batch = new SpriteBatch();
         uiObjects = new ArrayList<UIObject>();
+    }
+
+    @Override
+    public void render(float delta)
+    {
+        for(UIObject uiObject : uiObjects)
+        {
+            uiObject.update();
+        }
+
+        batch.begin();
+        batch.draw(background, 0, 0);
+
+        for(UIObject uiObject : uiObjects)
+        {
+            uiObject.render(batch);
+        }
+        batch.end();
+    }
+
+    @Override
+    public void dispose()
+    {
+        batch.dispose();
+        background.dispose();
     }
 
     @Override
@@ -60,10 +86,5 @@ public abstract class GameScreen implements Screen, Observer
         }
     }
 
-    @Override
-    public void dispose()
-    {
-        batch.dispose();
-        background.dispose();
-    }
+    protected abstract void createUserInterface(AssetManager assetManager);
 }
