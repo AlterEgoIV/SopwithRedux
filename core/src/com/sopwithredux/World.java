@@ -33,6 +33,7 @@ public class World
     private boolean isFinished;
     public boolean player1Won;
     public int player1Outposts, player2Outposts;
+    public final double gravity = 100.0;
 
     public World(AssetManager assetManager, Texture background)
     {

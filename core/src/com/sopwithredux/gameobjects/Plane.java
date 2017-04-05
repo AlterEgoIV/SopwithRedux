@@ -82,6 +82,8 @@ public class Plane extends CollidableObject implements InputHandler
         direction.x = (float)Math.cos(Math.toRadians(angle));
         direction.y = (float)Math.sin(Math.toRadians(angle));
 
+        position.y -= world.gravity * Gdx.graphics.getDeltaTime();
+
         if(position.y <= Gdx.graphics.getHeight() / 5)
         {
             --lives;
