@@ -55,6 +55,21 @@ public class Plane extends CollidableObject implements InputHandler
     @Override
     public void update()
     {
+        if(isPlayer1)
+        {
+            if(lives == 0 || world.player1Outposts == 0)
+            {
+                world.end(false);
+            }
+        }
+        else
+        {
+            if(lives == 0 || world.player2Outposts == 0)
+            {
+                world.end(true);
+            }
+        }
+
         if(falling)
         {
             position.y -= speed * Gdx.graphics.getDeltaTime();

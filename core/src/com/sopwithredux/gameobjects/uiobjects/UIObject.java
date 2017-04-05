@@ -1,6 +1,8 @@
 package com.sopwithredux.gameobjects.uiobjects;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.math.Vector2;
 import com.sopwithredux.World;
 import com.sopwithredux.gameobjects.GameObject;
@@ -10,6 +12,11 @@ import com.sopwithredux.gameobjects.GameObject;
  */
 public abstract class UIObject extends GameObject
 {
+    public UIObject(Vector2 position, double speed, double angle, boolean isFlippedX, boolean isFlippedY)
+    {
+        super(position, speed, angle, isFlippedX, isFlippedY);
+    }
+
     protected UIObject(Texture image, Vector2 position, Vector2 dimension, Vector2 sourceDimension, double speed, double angle, boolean isFlippedX, boolean isFlippedY)
     {
         super(image, position, dimension, sourceDimension, speed, angle, isFlippedX, isFlippedY);

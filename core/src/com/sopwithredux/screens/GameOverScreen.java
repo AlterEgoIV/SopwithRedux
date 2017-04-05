@@ -1,7 +1,10 @@
 package com.sopwithredux.screens;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.math.Vector2;
 import com.sopwithredux.SopwithRedux;
+import com.sopwithredux.gameobjects.uiobjects.Text;
 
 /**
  * Created by Carl on 04/04/2017.
@@ -11,16 +14,14 @@ public class GameOverScreen extends GameScreen
     public GameOverScreen(SopwithRedux game, AssetManager assetManager)
     {
         super(game);
+
+        background = assetManager.get("startmenu.png");
+
+        System.out.println("In GameOverScreen");
     }
 
     @Override
     public void show()
-    {
-
-    }
-
-    @Override
-    public void render(float delta)
     {
 
     }
@@ -53,5 +54,13 @@ public class GameOverScreen extends GameScreen
     protected void createUserInterface(AssetManager assetManager)
     {
 
+    }
+
+    public void setText(String text)
+    {
+        uiObjects.clear();
+        uiObjects.add(new Text(new Vector2(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2),
+          0.0, 0.0, 1f, 1f,
+          false, false, text));
     }
 }

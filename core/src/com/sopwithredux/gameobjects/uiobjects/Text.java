@@ -1,5 +1,6 @@
 package com.sopwithredux.gameobjects.uiobjects;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -14,6 +15,20 @@ public class Text extends UIObject
     private BitmapFont bitmapFont;
     private GlyphLayout glyphLayout;
 
+    public Text(Vector2 position, double speed, double angle, double scaleX, double scaleY,
+                boolean isFlippedX, boolean isFlippedY, String text)
+    {
+        super(position, speed, angle, isFlippedX, isFlippedY);
+
+        bitmapFont = new BitmapFont();
+        glyphLayout = new GlyphLayout(bitmapFont, text);
+        position.x -= glyphLayout.width / 2;
+        position.y -= glyphLayout.height / 2;
+        bitmapFont.getData().setScale((float)scaleX, (float)scaleY);
+        //bitmapFont.getData().scale((float)scaleX);
+        bitmapFont.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+    }
+
     public Text(World world, Vector2 position, double speed, double angle, double scaleX, double scaleY,
                 boolean isFlippedX, boolean isFlippedY, String text)
     {
@@ -24,6 +39,8 @@ public class Text extends UIObject
         position.x -= glyphLayout.width / 2;
         position.y -= glyphLayout.height / 2;
         bitmapFont.getData().setScale((float)scaleX, (float)scaleY);
+        //bitmapFont.getData().scale((float)scaleX);
+        bitmapFont.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
     }
 
     public Text(World world, Vector2 position, double speed, double angle, double scaleX, double scaleY,
@@ -37,6 +54,8 @@ public class Text extends UIObject
         position.x -= glyphLayout.width / 2;
         position.y -= glyphLayout.height / 2;
         bitmapFont.getData().setScale((float)scaleX, (float)scaleY);
+        //bitmapFont.getData().scale((float)scaleX);
+        bitmapFont.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
     }
 
     @Override

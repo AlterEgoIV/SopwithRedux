@@ -59,6 +59,15 @@ public class Bomb extends CollidableObject
         System.out.println("Called3");
         sendEvent(outpost, Event.BOMB_DESTROYED_OUTPOST);
 
+        if(outpost.isPlayer1Outpost())
+        {
+            --world.player1Outposts;
+        }
+        else
+        {
+            --world.player2Outposts;
+        }
+
         world.remove(this);
         world.remove(outpost);
     }

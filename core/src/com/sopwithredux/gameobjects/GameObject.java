@@ -17,6 +17,18 @@ public abstract class GameObject extends Subject
     protected Texture image;
     protected boolean isFlippedX, isFlippedY;
 
+    protected GameObject(Vector2 position, double speed, double angle, boolean isFlippedX, boolean isFlippedY)
+    {
+        this.position = position;
+        this.speed = speed;
+        this.angle = angle;
+        this.isFlippedX = isFlippedX;
+        this.isFlippedY = isFlippedY;
+        scaleX = 1.0;
+        scaleY = 1.0;
+        direction = new Vector2(0, 0);
+    }
+
     protected GameObject(Texture image, Vector2 position, Vector2 dimension, Vector2 sourceDimension,
                          double speed, double angle, boolean isFlippedX, boolean isFlippedY)
     {

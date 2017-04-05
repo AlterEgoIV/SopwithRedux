@@ -30,6 +30,9 @@ public class World
     private CollisionHandler collisionHandler;
     private Random rand;
     private int spawnTime, timeLeftToSpawn;
+    private boolean isFinished;
+    public boolean player1Won;
+    public int player1Outposts, player2Outposts;
 
     public World(AssetManager assetManager, Texture background)
     {
@@ -44,6 +47,10 @@ public class World
         rand = new Random();
         spawnTime = 300;
         timeLeftToSpawn = 0;
+        isFinished = false;
+        player1Won = false;
+        player1Outposts = 5;
+        player2Outposts = 5;
 
         createGameObjects();
 
@@ -256,5 +263,16 @@ public class World
 
         // Okay, CollisionHandler doesn't do anything until all objects have updated
         if(gameObject instanceof CollidableObject) collisionHandler.remove((CollidableObject)gameObject);
+    }
+
+    public boolean isFinished()
+    {
+        return isFinished;
+    }
+
+    public void end(boolean player1Won)
+    {
+        isFinished = true;
+        this.player1Won = player1Won;
     }
 }
