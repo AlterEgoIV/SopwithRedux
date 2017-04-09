@@ -21,6 +21,7 @@ public class Plane extends CollidableObject implements InputHandler
                 lives, outposts, bombs, maxBombs, fuel, maxFuel, damageTaken, maxDamage;
     private double maxSpeed;
     private boolean isPlayer1, falling;
+    //private double targetAngle;
 
     public Plane(World world, Texture image, Vector2 position, Vector2 dimension, Vector2 sourceDimension, double speed,
                  double angle, boolean isFlippedX, boolean isFlippedY, int up, int down, int left, int right, int fire, int dropBomb,
@@ -50,11 +51,36 @@ public class Plane extends CollidableObject implements InputHandler
         maxDamage = 5;
         maxSpeed = this.speed;
         falling = false;
+//        rotationSpeed = 1.5;
+//
+//        if(isFlippedY)
+//        {
+//            targetAngle = 270.0;
+//        }
+//        else
+//        {
+//            targetAngle = -90;
+//        }
     }
 
     @Override
     public void update()
     {
+        if(position.x - dimension.x / 2 < 0)
+        {
+            position.x = dimension.x / 2;
+        }
+
+        if(position.x + dimension.x / 2 > Gdx.graphics.getWidth())
+        {
+            position.x = Gdx.graphics.getWidth() - dimension.x / 2;
+        }
+
+        if(position.y + dimension.y / 2 > Gdx.graphics.getHeight())
+        {
+            position.y = Gdx.graphics.getHeight() - dimension.y / 2;
+        }
+
         if(isPlayer1)
         {
             if(lives == 0 || world.player1Outposts == 0)
@@ -73,6 +99,15 @@ public class Plane extends CollidableObject implements InputHandler
         if(falling)
         {
             position.y -= speed * Gdx.graphics.getDeltaTime();
+
+//            if(angle <= targetAngle)
+//            {
+//                angle += rotationSpeed;
+//            }
+//            else if(angle >= targetAngle)
+//            {
+//                angle -= rotationSpeed;
+//            }
         }
         else
         {
