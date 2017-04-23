@@ -163,11 +163,6 @@ public class Plane extends CollidableObject implements InputHandler
             position.y += speed * Gdx.graphics.getDeltaTime();
         }
 
-        if(Gdx.input.isKeyPressed(down))
-        {
-            position.y -= speed * Gdx.graphics.getDeltaTime();
-        }
-
         if(Gdx.input.isKeyPressed(left))
         {
             position.x -= speed * Gdx.graphics.getDeltaTime();

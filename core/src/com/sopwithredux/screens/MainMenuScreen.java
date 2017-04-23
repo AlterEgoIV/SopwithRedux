@@ -68,20 +68,26 @@ public class MainMenuScreen extends GameScreen
         float yOffset = (Gdx.graphics.getHeight() / 20) * 2;
         float x = Gdx.graphics.getWidth() / 2, y = Gdx.graphics.getHeight() / 2;
 
-        uiObjects.add(new Button(assetManager.get("startbutton.png", Texture.class),
+        Button button = new Button(assetManager.get("startbutton.png", Texture.class),
           assetManager.get("startselect.png", Texture.class),
           new Vector2(x, y),
           new Vector2(Gdx.graphics.getWidth() / 10, Gdx.graphics.getHeight() / 20),
           new Vector2(480, 108),
-          0.0, 0.0, false, false, Event.GOTO_PLAY_SCREEN));
+          0.0, 0.0, false, false, Event.GOTO_PLAY_SCREEN);
+
+        //button.init();
+        uiObjects.add(button);
 
         y = (Gdx.graphics.getHeight() / 2) - yOffset;
 
-        uiObjects.add(new Button(assetManager.get("controlbutton.png", Texture.class),
+        button = new Button(assetManager.get("controlbutton.png", Texture.class),
           assetManager.get("controlselect.png", Texture.class),
           new Vector2(x, y),
           new Vector2(Gdx.graphics.getWidth() / 10, Gdx.graphics.getHeight() / 20),
           new Vector2(480, 108),
-          0.0, 0.0, false, false, Event.GOTO_CONTROL_SCREEN));
+          0.0, 0.0, false, false, Event.GOTO_CONTROL_SCREEN);
+
+        //button.init();
+        uiObjects.add(button);
     }
 }

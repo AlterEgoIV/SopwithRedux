@@ -17,6 +17,67 @@ public class Button extends UIObject
     private Event buttonClickEvent;
     private Vector2 mousePosition;
 
+//    private final InputProcessor inputProcessor = new InputProcessor()
+//    {
+//        @Override
+//        public boolean keyDown(int keycode)
+//        {
+//            return false;
+//        }
+//
+//        @Override
+//        public boolean keyUp(int keycode)
+//        {
+//            return false;
+//        }
+//
+//        @Override
+//        public boolean keyTyped(char character)
+//        {
+//            return false;
+//        }
+//
+//        @Override
+//        public boolean touchDown(int screenX, int screenY, int pointer, int button)
+//        {
+//            return false;
+//        }
+//
+//        @Override
+//        public boolean touchUp(int screenX, int screenY, int pointer, int button)
+//        {
+//            if(button == Input.Buttons.LEFT)
+//            {
+//                if(screenX > mousePosition.x - (dimension.x / 2) && screenX < mousePosition.x + (dimension.x / 2) &&
+//                   screenY > mousePosition.y - (dimension.y / 2) && screenY < mousePosition.y + (dimension.y / 2))
+//                {
+//                    sendEvent(Button.this, buttonClickEvent);
+//                    return true;
+//                }
+//            }
+//
+//            return false;
+//        }
+//
+//        @Override
+//        public boolean touchDragged(int screenX, int screenY, int pointer)
+//        {
+//            return false;
+//        }
+//
+//        @Override
+//        public boolean mouseMoved(int screenX, int screenY)
+//        {
+//            return false;
+//        }
+//
+//        @Override
+//        public boolean scrolled(int amount)
+//        {
+//            return false;
+//        }
+//    };
+
     public Button(Texture image, Texture overlay, Vector2 position, Vector2 dimension, Vector2 sourceDimension,
                   double speed, double angle, boolean isFlippedX, boolean isFlippedY, Event buttonClickEvent)
     {
@@ -27,6 +88,11 @@ public class Button extends UIObject
         this.buttonClickEvent = buttonClickEvent;
         mousePosition = new Vector2(position.x, Gdx.graphics.getHeight() - position.y);
     }
+
+//    public void init()
+//    {
+//        Gdx.input.setInputProcessor(inputProcessor);
+//    }
 
     @Override
     public void update()
@@ -44,7 +110,7 @@ public class Button extends UIObject
                     if(button == Input.Buttons.LEFT)
                     {
                         if(screenX > mousePosition.x - (dimension.x / 2) && screenX < mousePosition.x + (dimension.x / 2) &&
-                           screenY > mousePosition.y - (dimension.y / 2) && screenY < mousePosition.y + (dimension.y / 2))
+                          screenY > mousePosition.y - (dimension.y / 2) && screenY < mousePosition.y + (dimension.y / 2))
                         {
                             sendEvent(Button.this, buttonClickEvent);
                             return true;
