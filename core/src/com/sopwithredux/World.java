@@ -162,7 +162,7 @@ public class World
     private void createPlanes()
     {
         Plane plane = new Plane(this, assetManager.get("plane1.png", Texture.class),
-          new Vector2(Gdx.graphics.getWidth() / 3.0f, Gdx.graphics.getHeight() / 2.0f),
+          new Vector2(Gdx.graphics.getWidth() / 8.0f, Gdx.graphics.getHeight() - Gdx.graphics.getHeight() / 4.0f),
           new Vector2(Gdx.graphics.getWidth() / 10.0f, Gdx.graphics.getWidth() / 20.0f),
           new Vector2(512.0f, 256.0f),
           200.0, 0.0, false, false,
@@ -174,8 +174,7 @@ public class World
         activeGameObjects.add(plane);
 
         plane = new Plane(this, assetManager.get("plane2.png", Texture.class),
-          new Vector2(Gdx.graphics.getWidth() / 3.0f, Gdx.graphics.getHeight() / 2.0f),
-          /*new Vector2(Gdx.graphics.getWidth() - (Gdx.graphics.getWidth() / 3.0f), Gdx.graphics.getHeight() / 2.0f),*/
+          new Vector2(Gdx.graphics.getWidth() - Gdx.graphics.getWidth() / 8.0f, Gdx.graphics.getHeight() - Gdx.graphics.getHeight() / 4.0f),
           new Vector2(Gdx.graphics.getWidth() / 10.0f, Gdx.graphics.getWidth() / 20.0f),
           new Vector2(512.0f, 256.0f),
           200.0, 180.0, false, true,
