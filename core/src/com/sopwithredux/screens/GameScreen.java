@@ -22,10 +22,12 @@ public abstract class GameScreen implements Screen, Observer
     protected SpriteBatch batch;
     protected Texture background;
     protected List<UIObject> uiObjects;
+    protected AssetManager assetManager;
 
-    protected GameScreen(SopwithRedux game)
+    protected GameScreen(SopwithRedux game, AssetManager assetManager)
     {
         this.game = game;
+        this.assetManager = assetManager;
         batch = new SpriteBatch();
         uiObjects = new ArrayList<UIObject>();
     }

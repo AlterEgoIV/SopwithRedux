@@ -18,7 +18,7 @@ public class ControlsScreen extends GameScreen
 {
     public ControlsScreen(SopwithRedux game, AssetManager assetManager)
     {
-        super(game);
+        super(game, assetManager);
 
         background = assetManager.get("controls.png");
         createUserInterface(assetManager);

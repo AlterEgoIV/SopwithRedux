@@ -65,6 +65,8 @@ public class SopwithRedux extends Game
 		assetManager.load("controlselect.png", Texture.class);
 		assetManager.load("exitbutton.png", Texture.class);
 		assetManager.load("exitselect.png", Texture.class);
+		assetManager.load("gameoverp1win.png", Texture.class);
+		assetManager.load("gameoverp2win.png", Texture.class);
 		assetManager.finishLoading();
 	}
 

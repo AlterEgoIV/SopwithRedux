@@ -13,7 +13,7 @@ public class PlayScreen extends GameScreen
 
     public PlayScreen(SopwithRedux game, AssetManager assetManager)
     {
-        super(game);
+        super(game, assetManager);
 
         background = assetManager.get("background.png");
         world = new World(assetManager, background);
@@ -41,11 +41,11 @@ public class PlayScreen extends GameScreen
         {
             if(world.player1Won)
             {
-                ((GameOverScreen)game.screens.get(ScreenName.GAME_OVER_SCREEN)).setText("Player 1 wins!");
+                ((GameOverScreen)game.screens.get(ScreenName.GAME_OVER_SCREEN)).setBackground("gameoverp1win.png");
             }
             else
             {
-                ((GameOverScreen)game.screens.get(ScreenName.GAME_OVER_SCREEN)).setText("Player 2 wins!");
+                ((GameOverScreen)game.screens.get(ScreenName.GAME_OVER_SCREEN)).setBackground("gameoverp2win.png");
             }
 
             game.setScreen(game.screens.get(ScreenName.GAME_OVER_SCREEN));

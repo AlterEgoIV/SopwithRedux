@@ -21,7 +21,7 @@ public class MainMenuScreen extends GameScreen
 {
     public MainMenuScreen(SopwithRedux game, AssetManager assetManager)
     {
-        super(game);
+        super(game, assetManager);
 
         background = assetManager.get("startmenu.png");
         createUserInterface(assetManager);

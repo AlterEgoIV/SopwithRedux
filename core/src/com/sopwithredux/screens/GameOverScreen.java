@@ -13,11 +13,7 @@ public class GameOverScreen extends GameScreen
 {
     public GameOverScreen(SopwithRedux game, AssetManager assetManager)
     {
-        super(game);
-
-        background = assetManager.get("startmenu.png");
-
-        System.out.println("In GameOverScreen");
+        super(game, assetManager);
     }
 
     @Override
@@ -62,5 +58,10 @@ public class GameOverScreen extends GameScreen
         uiObjects.add(new Text(new Vector2(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2),
           0.0, 0.0, 1f, 1f,
           false, false, text));
+    }
+
+    public void setBackground(String image)
+    {
+        background = assetManager.get(image);
     }
 }
