@@ -4,6 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.sopwithredux.screens.*;
@@ -26,6 +27,8 @@ public class SopwithRedux extends Game
 		screens = new HashMap<ScreenName, Screen>();
 		createScreens();
 		setScreen(screens.get(ScreenName.MAIN_MENU_SCREEN));
+		assetManager.get("bgmusic.mp3", Music.class).setLooping(true);
+		assetManager.get("bgmusic.mp3", Music.class).play();
 	}
 
 	@Override
@@ -67,6 +70,7 @@ public class SopwithRedux extends Game
 		assetManager.load("exitselect.png", Texture.class);
 		assetManager.load("gameoverp1win.png", Texture.class);
 		assetManager.load("gameoverp2win.png", Texture.class);
+		assetManager.load("bgmusic.mp3", Music.class);
 		assetManager.finishLoading();
 	}
 
